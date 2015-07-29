@@ -11,12 +11,44 @@
 			<string>PSGroupSpecifier</string>
 		</dict>
 		<dict>
+			<key>Type</key>
+			<string>PSMultiValueSpecifier</string>
+			<key>Title</key>
+			<string>Feed</string>
+			<key>Titles</key>
+			<array>
+				<string>BBC</string>
+				<string>The Guardian</string>
+				<string>Reuters</string>
+			</array>
+			<key>Key</key>
+			<string>chosenFeed</string>
+			<key>DefaultValue</key>
+			<true/>
+			<key>Values</key>
+			<array>
+				<string>http://feeds.bbci.co.uk/news/rss.xml</string>
+				<string>http://www.theguardian.com/world/rss</string>
+				<string>http://feeds.reuters.com/Reuters/worldNews?format=xml</string>
+			</array>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSToggleSwitchSpecifier</string>
+			<key>Title</key>
+			<string>Use custom URL</string>
+			<key>Key</key>
+			<string>isCustomUrl</string>
+			<key>DefaultValue</key>
+			<false/>
+		</dict>
+		<dict>
 			<key>AutocapitalizationType</key>
 			<string>None</string>
 			<key>AutocorrectionType</key>
 			<string>No</string>
 			<key>DefaultValue</key>
-			<string>http://feeds.bbci.co.uk/news/rss.xml</string>
+			<string>Item 0</string>
 			<key>IsSecure</key>
 			<false/>
 			<key>Key</key>

@@ -48,7 +48,7 @@
     
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(receiveTestNotification:)
-                                                 name:@"EnterApplicationForegroundNotification"
+                                                 name:@"SettingsUpdatedNotification"
                                                object:nil];
     
 
@@ -69,10 +69,11 @@
         NSLog (@"Successfully received the test notification!");
 
     NSError* error;
+    [NSFetchedResultsController deleteCacheWithName:@"Root"];
     [self.resultsController.fetchRequest setPredicate:
      [NSPredicate predicateWithFormat:
-      @"server.url contains[cd] %@", [SettingsManager sharedInstance].serverURL]];
-     
+      @"feedServerRelationship.serverUrl contains[cd] %@", [SettingsManager sharedInstance].serverURL]];
+     [[ParserManager sharedInstance] parse:[SettingsManager sharedInstance].serverURL];
     [self.resultsController performFetch:&error];
     [self.tableView reloadData];
 }
@@ -247,7 +248,7 @@
         NSIndexPath* sel = [self.tableView indexPathForCell:(UITableViewCell*)chk];
         FeedItem* curItem = [self.resultsController objectAtIndexPath:sel];
         ImageBrowserViewController* im =[segue destinationViewController];
-        im.image =   [UIImage imageWithData:[curItem getItemIcon]];
+        im.image =   [UIImage imageWithData:[curItem getItemImage]];
     }
 }
 

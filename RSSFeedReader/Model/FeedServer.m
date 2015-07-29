@@ -67,7 +67,8 @@
     }
     
     // Now the image must be in core data so we fetch it
-    return [NSData dataWithContentsOfURL: [NSURL URLWithString:path]];
+    NSData* retData = [NSData dataWithContentsOfFile:path];
+    return retData;
 }
 
 

@@ -61,7 +61,8 @@
     // if article doesn't have any itemImage
     if(iconID == -1)
     {
-        return nil;
+        NSData* retData = [self.feedServerRelationship getServerIcon];
+        return retData;
     }
     
     

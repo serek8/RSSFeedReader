@@ -30,14 +30,8 @@
 -(NSString*)serverURL
 {
     
-    if([[NSUserDefaults standardUserDefaults] stringForKey:@"feedUrl"] == nil)
-    {
-        [[NSUserDefaults standardUserDefaults] setValue:@DEFAULT_FEED_URL
-                                                 forKey:@"feedUrl"];
-        _serverURL = @DEFAULT_FEED_URL;
-    }
-    else if(_serverURL==nil) _serverURL = [[NSUserDefaults standardUserDefaults] stringForKey:@"feedUrl"];
-    
+
+    if(_serverURL==nil) [self updateServerURL];
     return _serverURL;
     
 }
@@ -45,7 +39,28 @@
 
 -(void)updateServerURL
 {
-    _serverURL =[[NSUserDefaults standardUserDefaults] stringForKey:@"feedUrl"];
+    if([[NSUserDefaults standardUserDefaults] stringForKey:@"chosenFeed"] == nil ||
+       [[NSUserDefaults standardUserDefaults] boolForKey:@"isCustomUrl"] == YES)
+    {
+        _serverURL = [[NSUserDefaults standardUserDefaults] stringForKey:@"feedUrl"];
+    }
+    
+    else if([[NSUserDefaults standardUserDefaults] boolForKey:@"isCustomUrl"] == NO)
+    {
+        _serverURL = [[NSUserDefaults standardUserDefaults] stringForKey:@"chosenFeed"];
+    }
+    
+    else
+    {
+        [[NSUserDefaults standardUserDefaults] setValue:@DEFAULT_FEED_URL
+                                                 forKey:@"feedUrl"];
+        _serverURL = @DEFAULT_FEED_URL;
+    }
+    [[NSNotificationCenter defaultCenter]
+     postNotificationName:@"SettingsUpdatedNotification"
+     object:nil];
+    
+    
 }
 
 
