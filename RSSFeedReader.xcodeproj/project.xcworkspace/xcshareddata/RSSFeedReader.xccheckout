@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>D320934C-F07F-4C72-B954-A5FE688484F3</string>
+	<key>IDESourceControlProjectName</key>
+	<string>RSSFeedReader</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>e6538d78-4c47-11df-ba7b-8ff9dde3518e++2295</key>
+		<string>https://svn.dataart.com/svn/Mentorship/JanSeredynski</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>RSSFeedReader/RSSFeedReader.xcodeproj</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>e6538d78-4c47-11df-ba7b-8ff9dde3518e++2295</key>
+		<string>../../..</string>
+	</dict>
+	<key>IDESourceControlProjectRepositoryRootDictionary</key>
+	<dict>
+		<key>e6538d78-4c47-11df-ba7b-8ff9dde3518e++2295</key>
+		<string>https://svn.dataart.com/svn/Mentorship</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>https://svn.dataart.com/svn/Mentorship/JanSeredynski/RSSFeedReader/RSSFeedReader.xcodeproj</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>111</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>e6538d78-4c47-11df-ba7b-8ff9dde3518e++2295</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.subversion</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>e6538d78-4c47-11df-ba7b-8ff9dde3518e++2295</string>
+			<key>IDESourceControlWCCName</key>
+			<string>JanSeredynski</string>
+		</dict>
+	</array>
+</dict>
+</plist>

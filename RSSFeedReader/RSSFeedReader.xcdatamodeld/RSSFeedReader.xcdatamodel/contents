@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="7701" systemVersion="14E46" minimumToolsVersion="Automatic" macOSVersion="Automatic" iOSVersion="Automatic">
+    <entity name="FeedImage" representedClassName="FeedImage" syncable="YES">
+        <attribute name="imageHeight" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="imageUrl" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="imageWidth" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <relationship name="feedItemRelationship" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="FeedItem" inverseName="feedImageRelationship" inverseEntity="FeedItem" syncable="YES"/>
+    </entity>
+    <entity name="FeedItem" representedClassName="FeedItem" syncable="YES">
+        <attribute name="itemDetail" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="itemGuid" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="itemLink" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="itemPublicationDate" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="itemTitle" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="feedImageRelationship" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="FeedImage" inverseName="feedItemRelationship" inverseEntity="FeedImage" syncable="YES"/>
+        <relationship name="feedServerRelationship" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="FeedServer" inverseName="feedItemRelationship" inverseEntity="FeedServer" syncable="YES"/>
+    </entity>
+    <entity name="FeedServer" representedClassName="FeedServer" syncable="YES">
+        <attribute name="serverImageUrl" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="serverName" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="serverUrl" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="feedItemRelationship" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="FeedItem" inverseName="feedServerRelationship" inverseEntity="FeedItem" syncable="YES"/>
+    </entity>
+    <elements>
+        <element name="FeedImage" positionX="117" positionY="-22" width="128" height="103"/>
+        <element name="FeedItem" positionX="-99" positionY="-67" width="128" height="148"/>
+        <element name="FeedServer" positionX="-324" positionY="-81" width="128" height="103"/>
+    </elements>
+</model>
