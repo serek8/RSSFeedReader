@@ -34,14 +34,7 @@
     [self.webView loadRequest:urlRequest];
 }
 
--(void)viewWillLayoutSubviews
-{
-    [super viewWillLayoutSubviews];
-    if (self.interfaceOrientation == UIInterfaceOrientationPortrait)
-        self.webView.scrollView.contentInset = UIEdgeInsetsMake(64, 0, 0, 0);
-    else
-        self.webView.scrollView.contentInset = UIEdgeInsetsMake(32, 0, 0, 0);
-}
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

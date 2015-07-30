@@ -31,7 +31,11 @@
 {
     
 
-    if(_serverURL==nil) [self updateServerURL];
+    if(_serverURL==nil)
+    {
+     
+     [self updateServerURL];
+    }
     return _serverURL;
     
 }
@@ -39,8 +43,16 @@
 
 -(void)updateServerURL
 {
-    if([[NSUserDefaults standardUserDefaults] stringForKey:@"chosenFeed"] == nil ||
-       [[NSUserDefaults standardUserDefaults] boolForKey:@"isCustomUrl"] == YES)
+    if([[NSUserDefaults standardUserDefaults] objectForKey:@"isCustomUrl"] == nil &&
+       [[NSUserDefaults standardUserDefaults] stringForKey:@"chosenFeed"] == nil )
+    {
+        [[NSUserDefaults standardUserDefaults] setValue:@DEFAULT_FEED_URL
+                                                 forKey:@"feedUrl"];
+        _serverURL = @DEFAULT_FEED_URL;
+    }
+    else if([[NSUserDefaults standardUserDefaults] stringForKey:@"chosenFeed"] == nil ||(
+       [[NSUserDefaults standardUserDefaults] boolForKey:@"isCustomUrl"] == YES &&
+       [[NSUserDefaults standardUserDefaults] objectForKey:@"isCustomUrl"] != nil ))
     {
         _serverURL = [[NSUserDefaults standardUserDefaults] stringForKey:@"feedUrl"];
     }

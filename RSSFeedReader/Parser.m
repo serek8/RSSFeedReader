@@ -102,7 +102,7 @@
         attributes:(NSDictionary *)attributeDict
 {
     [self.tagStack push:elementName];
-    [self.tagStack printFromBottom];
+    //[self.tagStack printFromBottom];
     self.element = [NSMutableString string];
     [self.attributeStack push:attributeDict];
     // if new item tag is being detected I create a new Item instance NSManagaedObject
@@ -243,9 +243,10 @@
         
         if([self.tagStack.showTop isEqualToString:@"image"])
         {
-            self.element.string = [self.element stringByReplacingOccurrencesOfString:@"\n" withString:@""];
-            self.element.string = [self.element stringByReplacingOccurrencesOfString:@" " withString:@""];
-            self.server.serverImageUrl = self.element;
+            NSString *str;
+            str = [self.element stringByReplacingOccurrencesOfString:@"\n" withString:@""];
+            str = [str stringByReplacingOccurrencesOfString:@" " withString:@""];
+            self.server.serverImageUrl = str;
             NSError *error;
             [self.context save:&error];
         }

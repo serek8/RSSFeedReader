@@ -12,10 +12,13 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <searchBar key="tableHeaderView" contentMode="redraw" id="OTT-cO-KxK">
+                        <searchBar key="tableHeaderView" contentMode="redraw" id="ZnK-0v-oJF">
                             <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                             <textInputTraits key="textInputTraits"/>
+                            <connections>
+                                <outlet property="delegate" destination="Nbb-NN-H0L" id="STT-pY-csK"/>
+                            </connections>
                         </searchBar>
                         <prototypes>
                             <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="feedTableCell" rowHeight="82" id="aH7-sp-diV" customClass="FeedUITableViewCell">
@@ -190,6 +193,39 @@
                             </webView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="QrJ-Bq-UPR" firstAttribute="top" secondItem="zYz-fy-chm" secondAttribute="bottom" id="4wT-YB-eOi"/>
+                            <constraint firstAttribute="centerY" secondItem="mbh-As-6XQ" secondAttribute="centerY" id="Jwg-Ak-fMK"/>
+                            <constraint firstAttribute="centerX" secondItem="mbh-As-6XQ" secondAttribute="centerX" id="Q8N-o6-yNS"/>
+                            <constraint firstItem="QrJ-Bq-UPR" firstAttribute="leading" secondItem="FYx-pl-uLs" secondAttribute="leading" id="YTN-xf-ADm"/>
+                            <constraint firstItem="aGp-RD-obM" firstAttribute="top" secondItem="QrJ-Bq-UPR" secondAttribute="bottom" id="egD-YF-EKp"/>
+                            <constraint firstItem="QrJ-Bq-UPR" firstAttribute="top" secondItem="FYx-pl-uLs" secondAttribute="top" id="eop-2m-qcR">
+                                <variation key="widthClass=compact" constant="64"/>
+                            </constraint>
+                            <constraint firstAttribute="trailing" secondItem="QrJ-Bq-UPR" secondAttribute="trailing" id="eso-we-M84"/>
+                        </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="4wT-YB-eOi"/>
+                                <exclude reference="YTN-xf-ADm"/>
+                                <exclude reference="eop-2m-qcR"/>
+                                <exclude reference="eso-we-M84"/>
+                                <exclude reference="Jwg-Ak-fMK"/>
+                                <exclude reference="Q8N-o6-yNS"/>
+                                <exclude reference="egD-YF-EKp"/>
+                            </mask>
+                        </variation>
+                        <variation key="widthClass=compact">
+                            <mask key="constraints">
+                                <include reference="4wT-YB-eOi"/>
+                                <include reference="YTN-xf-ADm"/>
+                                <exclude reference="eop-2m-qcR"/>
+                                <include reference="eso-we-M84"/>
+                                <include reference="Jwg-Ak-fMK"/>
+                                <include reference="Q8N-o6-yNS"/>
+                                <include reference="egD-YF-EKp"/>
+                            </mask>
+                        </variation>
                     </view>
                     <navigationItem key="navigationItem" id="GSI-h7-X3Y"/>
                     <connections>
@@ -199,7 +235,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="n71-Eb-9pA" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2313.75" y="-101.40845070422534"/>
+            <point key="canvasLocation" x="2313" y="-102"/>
         </scene>
         <!--Image Browser View Controller-->
         <scene sceneID="gcO-uc-3Sw">
@@ -216,13 +252,38 @@
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="3Bm-Ii-XNe">
                                 <rect key="frame" x="0.0" y="-70" width="400" height="670"/>
                                 <subviews>
-                                    <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="TPZ-Ye-TRd">
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="TPZ-Ye-TRd">
                                         <rect key="frame" x="0.0" y="133" width="322" height="507"/>
+                                        <variation key="widthClass=compact" fixedFrame="YES">
+                                            <rect key="frame" x="0.0" y="65" width="400" height="536"/>
+                                        </variation>
                                     </imageView>
                                 </subviews>
                             </scrollView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="2bk-dp-dH5" firstAttribute="top" secondItem="3Bm-Ii-XNe" secondAttribute="bottom" id="Nuk-xX-n5d"/>
+                            <constraint firstItem="3Bm-Ii-XNe" firstAttribute="top" secondItem="SiW-d6-R81" secondAttribute="top" id="S3g-gw-JnV"/>
+                            <constraint firstAttribute="trailing" secondItem="3Bm-Ii-XNe" secondAttribute="trailing" id="aLh-Bx-YhK"/>
+                            <constraint firstItem="3Bm-Ii-XNe" firstAttribute="leading" secondItem="SiW-d6-R81" secondAttribute="leading" id="fK1-cd-Aey"/>
+                        </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="S3g-gw-JnV"/>
+                                <exclude reference="aLh-Bx-YhK"/>
+                                <exclude reference="fK1-cd-Aey"/>
+                                <exclude reference="Nuk-xX-n5d"/>
+                            </mask>
+                        </variation>
+                        <variation key="widthClass=compact">
+                            <mask key="constraints">
+                                <include reference="S3g-gw-JnV"/>
+                                <include reference="aLh-Bx-YhK"/>
+                                <include reference="fK1-cd-Aey"/>
+                                <include reference="Nuk-xX-n5d"/>
+                            </mask>
+                        </variation>
                     </view>
                     <navigationItem key="navigationItem" id="cvd-xl-xFk"/>
                     <connections>
@@ -232,7 +293,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="CQ0-xV-dev" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2306.25" y="632.74647887323943"/>
+            <point key="canvasLocation" x="2313" y="632"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="P3R-EJ-4wS">

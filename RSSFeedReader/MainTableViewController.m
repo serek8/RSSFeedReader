@@ -14,11 +14,13 @@
 #import "SettingsManager.h"
 #import "ParserManager.h"
 
-@interface MainTableViewController () <NSFetchedResultsControllerDelegate>
+@interface MainTableViewController () <NSFetchedResultsControllerDelegate, UISearchBarDelegate>
 
 
 @property (nonatomic, retain) NSManagedObjectContext* context;
 @property (nonatomic,retain) NSFetchedResultsController* resultsController;
+
+
 
 @end
 
@@ -30,6 +32,7 @@
     [[NSNotificationCenter defaultCenter] removeObserver:self];
     self.context = nil;
     NSLog(@"dealloc");
+    
     [super dealloc];
 }
 
@@ -55,11 +58,12 @@
 
     NSLog(@"load");
     // Start NSFetchResultController
-    NSError* error;
-    [self.resultsController performFetch:&error];
-    
+    //NSError* error;
+    //[self.resultsController performFetch:&error];
     [[ParserManager sharedInstance] parse:[SettingsManager sharedInstance].serverURL];
+
     
+    //[[SettingsManager sharedInstance] updateServerURL];
 
 }
 
@@ -69,13 +73,14 @@
         NSLog (@"Successfully received the test notification!");
 
     NSError* error;
-    [NSFetchedResultsController deleteCacheWithName:@"Root"];
+    
     [self.resultsController.fetchRequest setPredicate:
      [NSPredicate predicateWithFormat:
       @"feedServerRelationship.serverUrl contains[cd] %@", [SettingsManager sharedInstance].serverURL]];
      [[ParserManager sharedInstance] parse:[SettingsManager sharedInstance].serverURL];
     [self.resultsController performFetch:&error];
-    [self.tableView reloadData];
+//    [self.tableView reloadData];
+//    [self.tableView setNeedsDisplay];
 }
 
 
@@ -86,6 +91,8 @@
     {
         // Merging changes to persistant store
         [self.context mergeChangesFromContextDidSaveNotification:notification];
+//        [self.tableView reloadData];
+//        [self.tableView setNeedsDisplay];
     });
 }
 
@@ -112,12 +119,12 @@
     NSPredicate *predicate = [NSPredicate predicateWithFormat: @"feedServerRelationship.serverUrl contains[cd] %@", [SettingsManager sharedInstance].serverURL];
     [fetchRequest setPredicate:predicate];
 
-    [NSFetchedResultsController deleteCacheWithName:@"Root"];
+    
     NSFetchedResultsController *theFetchedResultsController =
     [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest
                                         managedObjectContext:self.context
                                           sectionNameKeyPath:nil
-                                                   cacheName:@"Root"];
+                                                   cacheName:nil];
     
     self.resultsController = theFetchedResultsController;
     _resultsController.delegate = self;
@@ -175,6 +182,7 @@
  numberOfRowsInSection:(NSInteger)section {
 
     // Return the number of rows in the section.
+    
     id  sectionInfo = [self.resultsController.sections objectAtIndex:section];
     return [sectionInfo numberOfObjects];
 }
@@ -208,6 +216,39 @@
     
     return cell;
 }
+
+//-(BOOL)searchBar:(UISearchBar *)searchBar shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text
+//{
+//
+//    NSPredicate *predicate = nil;
+//    //NSLog([NSString stringWithFormat:@"%@%@", searchBar.text, text]);
+//    
+//    if ([searchBar.text length])
+//    {
+//        
+//        // full text, in my implementation.  Other scope button titles are "Author", "Title"
+//        predicate = [NSPredicate predicateWithFormat:@"feedServerRelationship.serverUrl contains[cd] %@ AND itemTitle CONTAINS[c] %@", [SettingsManager sharedInstance].serverURL, [NSString stringWithFormat:@"%@%@", searchBar.text, text]];
+//        [self.resultsController.fetchRequest setPredicate:predicate];
+//        NSError* error;
+//        [self.resultsController performFetch:&error];
+//        [self.tableView reloadData];
+//    }
+//    else
+//    {
+//        // full text, in my implementation.  Other scope button titles are "Author", "Title"
+//        predicate = [NSPredicate predicateWithFormat:@"feedServerRelationship.serverUrl contains[cd] %@", [SettingsManager sharedInstance].serverURL];
+//        [self.resultsController.fetchRequest setPredicate:predicate];
+//        NSError* error;
+//        [self.resultsController performFetch:&error];
+//        [self.tableView reloadData];
+//    }
+//    return YES;
+//}
+
+
+
+
+
 - (void)controllerWillChangeContent:(NSFetchedResultsController *)controller
 {
     // The fetch controller is about to start sending change notifications, so prepare the table view for updates.
@@ -220,7 +261,16 @@
     NSError* error;
     [self.context save:&error];
 }
-
+//- (void)controllerDidChangeContent:(NSFetchedResultsController *)controller
+//{
+//    // In the simplest, most efficient, case, reload the table view.
+//    NSError *error = nil;
+//    if (![[self resultsController] performFetch:&error]) {
+//        NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
+//        abort();
+//    }
+//    [self.tableView reloadData];
+//}
 
 
 

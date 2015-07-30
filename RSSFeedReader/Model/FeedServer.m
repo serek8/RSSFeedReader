@@ -36,10 +36,13 @@
 }
 -(NSData*) getServerIcon
 {
+    NSString *str;
+    str = [self.serverImageUrl stringByReplacingOccurrencesOfString:@"\n" withString:@""];
+    str = [str stringByReplacingOccurrencesOfString:@" " withString:@""];
     
     NSString* path = [NSHomeDirectory() stringByAppendingString:
                       [NSString stringWithFormat:@"/Library/Caches/Images/%@",
-                       [self.serverImageUrl md5]]];
+                       [str md5]]];
     
     //if file is not yet downloaded from the internet we fetch it and store in core data
     if(![[NSFileManager defaultManager] fileExistsAtPath:path])
@@ -60,7 +63,9 @@
         }
         else
         {
-            NSData* imgData =[NSData dataWithContentsOfURL: [NSURL URLWithString:self.serverImageUrl]];
+            
+            
+            NSData* imgData =[NSData dataWithContentsOfURL: [NSURL URLWithString:str]];
             [imgData writeToFile:path
                       atomically:YES];
         }
