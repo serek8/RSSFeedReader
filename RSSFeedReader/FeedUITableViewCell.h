@@ -16,4 +16,5 @@
 @property (retain, nonatomic) IBOutlet UIImageView *imageView2;
 
 @property (retain, nonatomic) IBOutlet UIButton *buttonWithImage;
+@property (retain, nonatomic) IBOutlet UILabel *summaryLabel;
 @end

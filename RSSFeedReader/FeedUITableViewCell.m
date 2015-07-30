@@ -27,6 +27,7 @@
     [_buttonWithImage release];
     [_titleLabel release];
     [_imageView2 release];
+    [_summaryLabel release];
     [super dealloc];
 }
 @end

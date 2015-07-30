@@ -191,7 +191,7 @@
 
 
     cell.titleLabel.text = dat.itemTitle;
-    
+    cell.summaryLabel.text = dat.itemDetail;
 
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
         // Download or get images here

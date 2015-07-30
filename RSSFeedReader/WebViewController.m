@@ -22,16 +22,25 @@
     [super dealloc];
 }
 
-- (void)viewDidLoad {
+- (void)viewDidLoad
+{
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.webView.delegate=self;
-    self.url= [self.url stringByReplacingOccurrencesOfString:@" " withString:@""];
-     self.url =   [self.url stringByReplacingOccurrencesOfString:@"\n" withString:@""];
+    self.url = [self.url stringByReplacingOccurrencesOfString:@" " withString:@""];
+    self.url = [self.url stringByReplacingOccurrencesOfString:@"\n" withString:@""];
     NSURL *websiteUrl = [NSURL URLWithString:self.url];
     NSURLRequest *urlRequest = [NSURLRequest requestWithURL:websiteUrl];
     [self.webView loadRequest:urlRequest];
-    
+}
+
+-(void)viewWillLayoutSubviews
+{
+    [super viewWillLayoutSubviews];
+    if (self.interfaceOrientation == UIInterfaceOrientationPortrait)
+        self.webView.scrollView.contentInset = UIEdgeInsetsMake(64, 0, 0, 0);
+    else
+        self.webView.scrollView.contentInset = UIEdgeInsetsMake(32, 0, 0, 0);
 }
 
 - (void)didReceiveMemoryWarning {
