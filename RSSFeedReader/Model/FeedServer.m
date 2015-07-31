@@ -1,5 +1,5 @@
 #import "FeedServer.h"
-
+#import "FeedImage.h"
 @interface FeedServer ()
 
 // Private interface goes here.
@@ -40,26 +40,9 @@
     str = [self.serverImageUrl stringByReplacingOccurrencesOfString:@"\n" withString:@""];
     str = [str stringByReplacingOccurrencesOfString:@" " withString:@""];
     
-    NSString* path = [NSHomeDirectory() stringByAppendingString:
-                      [NSString stringWithFormat:@"/Library/Caches/Images/%@",
-                       [str md5]]];
     
-    //if file is not yet downloaded from the internet we fetch it and store in core data
-    if(![[NSFileManager defaultManager] fileExistsAtPath:path])
-    {
-        
-        NSError *error;
-            NSData* imgData = [NSData dataWithContentsOfURL:[NSURL URLWithString:str]
-                                  options:NSDataReadingUncached
-                                    error:&error];
-            //NSData* imgData =[NSData dataWithContentsOfURL: [NSURL URLWithString:str]];
-            [imgData writeToFile:path
-                      atomically:YES];
-        
-    }
+    NSData* retData = [FeedImage downloadItemImageWithInternetPath: str];
     
-    // Now the image must be in core data so we fetch it
-    NSData* retData = [NSData dataWithContentsOfFile:path];
     return retData;
 }
 

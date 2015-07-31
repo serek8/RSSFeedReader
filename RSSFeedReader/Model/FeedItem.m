@@ -81,27 +81,9 @@
         NSData* retData = [self.feedServerRelationship getServerIcon];
         return retData;
     }
+    NSData* retData = [FeedImage downloadItemImageWithInternetPath:
+        ((FeedImage*)[icons objectAtIndex:iconID]).imageUrl];
     
-    
-    NSString* path = [NSHomeDirectory() stringByAppendingString:
-                      [NSString stringWithFormat:@"/Library/Caches/Images/%@",
-                       [((FeedImage*)[icons objectAtIndex:iconID]).imageUrl md5]]];
-    
-    //if file is not yet downloaded from the internet we fetch it and store in core data
-    if(![[NSFileManager defaultManager] fileExistsAtPath:path])
-    {
-
-
-            NSData* imgData =  [NSData dataWithContentsOfURL:
-                                                         [NSURL URLWithString:((FeedImage*)[icons objectAtIndex:iconID]).imageUrl]];
-            [imgData writeToFile:path
-                      atomically:YES];
-        
-    }
-    
-    // Now the image must be in core data so we fetch it
-    
-    NSData* retData = [NSData dataWithContentsOfFile:path];
     return retData;
 }
 
@@ -129,25 +111,9 @@
     {
         return [self getItemIcon];
     }
-    
-    
-    NSString* path = [NSHomeDirectory() stringByAppendingString:
-                      [NSString stringWithFormat:@"/Library/Caches/Images/%@",
-                       [((FeedImage*)[icons objectAtIndex:iconID]).imageUrl md5]]];
-    
-    //if file is not yet downloaded from the internet we fetch it and store in core data
-    if(![[NSFileManager defaultManager] fileExistsAtPath:path])
-    {
+    NSData* retData = [FeedImage downloadItemImageWithInternetPath:
+                       ((FeedImage*)[icons objectAtIndex:iconID]).imageUrl];
 
-
-        
-            NSData* imgData = [NSData dataWithContentsOfURL:                                                         [NSURL URLWithString:((FeedImage*)[icons objectAtIndex:iconID]).imageUrl]];
-                    [imgData writeToFile:path atomically:YES];
-        
-    }
-    
-    // Now the image must be in core data so we fetch it
-    NSData* retData = [NSData dataWithContentsOfFile:path];
     return retData;
 }
 

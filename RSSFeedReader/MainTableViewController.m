@@ -40,6 +40,7 @@
     [super dealloc];
 }
 
+
 -(void)viewDidLoad
 {
     [super viewDidLoad];
@@ -54,7 +55,7 @@
                                                object:nil];
     
     [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(receiveTestNotification:)
+                                             selector:@selector(settingsChanged:)
                                                  name:@"SettingsUpdatedNotification"
                                                object:nil];
     
@@ -79,7 +80,7 @@
         self.title = @"Feeds";
     }
 }
-- (void) receiveTestNotification:(NSNotification *) notification
+- (void) settingsChanged:(NSNotification *) notification
 {
     
         NSLog (@"Successfully received the test notification!");
@@ -91,6 +92,7 @@
       @"feedServerRelationship.serverUrl contains[cd] %@", [SettingsManager sharedInstance].serverURL]];
      [[ParserManager sharedInstance] parse:[SettingsManager sharedInstance].serverURL];
     [self.resultsController performFetch:&error];
+    [self.tableView reloadData];
 }
 
 
@@ -101,6 +103,7 @@
     {
         // Merging changes to persistant store
         [self.context mergeChangesFromContextDidSaveNotification:notification];
+        
     });
 }
 
@@ -165,6 +168,8 @@
             break;
             
         case NSFetchedResultsChangeUpdate:
+            ///[self configureCell:[self.tableView cellForRowAtIndexPath:indexPath]
+                 //   atIndexPath:indexPath];
             break;
             
         case NSFetchedResultsChangeMove:
@@ -248,7 +253,6 @@ shouldChangeTextInRange:(NSRange)range
 
 
 
-
 - (void)controllerWillChangeContent:(NSFetchedResultsController *)controller
 {
     // The fetch controller is about to start sending change notifications, so prepare the table view for updates.
@@ -261,16 +265,7 @@ shouldChangeTextInRange:(NSRange)range
     NSError* error;
     [self.context save:&error];
 }
-//- (void)controllerDidChangeContent:(NSFetchedResultsController *)controller
-//{
-//    // In the simplest, most efficient, case, reload the table view.
-//    NSError *error = nil;
-//    if (![[self resultsController] performFetch:&error]) {
-//        NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
-//        abort();
-//    }
-//    [self.tableView reloadData];
-//}
+
 
 
 

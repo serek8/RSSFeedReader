@@ -10,7 +10,7 @@
 @implementation FeedImage
 
 // Custom logic goes here.
--(NSData*) downloadItemImageWithInternetPath:(NSString*)imageInternetPath
++(NSData*) downloadItemImageWithInternetPath:(NSString*)imageInternetPath
 {
 
     NSString* path = [NSHomeDirectory() stringByAppendingString:
