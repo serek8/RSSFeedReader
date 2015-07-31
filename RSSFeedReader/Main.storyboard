@@ -2,6 +2,7 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14E46" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="l0K-l2-tyc">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
         <!--News feed-->
@@ -249,7 +250,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3Bm-Ii-XNe">
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="3Bm-Ii-XNe">
                                 <rect key="frame" x="0.0" y="-70" width="400" height="670"/>
                                 <subviews>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="TPZ-Ye-TRd">
@@ -264,13 +265,13 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="2bk-dp-dH5" firstAttribute="top" secondItem="3Bm-Ii-XNe" secondAttribute="bottom" id="Nuk-xX-n5d"/>
-                            <constraint firstItem="3Bm-Ii-XNe" firstAttribute="top" secondItem="SiW-d6-R81" secondAttribute="top" id="S3g-gw-JnV"/>
+                            <constraint firstItem="3Bm-Ii-XNe" firstAttribute="top" secondItem="SiW-d6-R81" secondAttribute="topMargin" id="Qja-QU-rs2"/>
                             <constraint firstAttribute="trailing" secondItem="3Bm-Ii-XNe" secondAttribute="trailing" id="aLh-Bx-YhK"/>
                             <constraint firstItem="3Bm-Ii-XNe" firstAttribute="leading" secondItem="SiW-d6-R81" secondAttribute="leading" id="fK1-cd-Aey"/>
                         </constraints>
                         <variation key="default">
                             <mask key="constraints">
-                                <exclude reference="S3g-gw-JnV"/>
+                                <exclude reference="Qja-QU-rs2"/>
                                 <exclude reference="aLh-Bx-YhK"/>
                                 <exclude reference="fK1-cd-Aey"/>
                                 <exclude reference="Nuk-xX-n5d"/>
@@ -278,7 +279,7 @@
                         </variation>
                         <variation key="widthClass=compact">
                             <mask key="constraints">
-                                <include reference="S3g-gw-JnV"/>
+                                <include reference="Qja-QU-rs2"/>
                                 <include reference="aLh-Bx-YhK"/>
                                 <include reference="fK1-cd-Aey"/>
                                 <include reference="Nuk-xX-n5d"/>

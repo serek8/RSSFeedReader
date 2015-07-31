@@ -53,17 +53,17 @@
 
 +(instancetype)createGeneratorWithUrl:(NSString*)url
 {
-    Parser* inst = [[Parser alloc] init];
+    Parser* inst = [[[Parser alloc] init]autorelease];
     if (inst)
     {
 
         inst.url = url;
-        inst.context = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSPrivateQueueConcurrencyType] ;
+        inst.context = [[[NSManagedObjectContext alloc] initWithConcurrencyType:NSPrivateQueueConcurrencyType] autorelease];
         inst.context.persistentStoreCoordinator = ((AppDelegate*)[UIApplication sharedApplication].delegate).persistentStoreCoordinator;
     
-        inst.tagStack = [[Stack alloc] init] ;
-        inst.attributeStack = [[Stack alloc] init];
-        inst.parser = [[NSXMLParser alloc] initWithContentsOfURL: [NSURL URLWithString:[SettingsManager sharedInstance].serverURL]];
+        inst.tagStack = [[[Stack alloc] init] autorelease];
+        inst.attributeStack = [[[Stack alloc] init] autorelease];
+        inst.parser = [[[NSXMLParser alloc] initWithContentsOfURL: [NSURL URLWithString:[SettingsManager sharedInstance].serverURL]] autorelease];
         //inst.parser.delegate = inst;
         inst->_flag = false;
     
@@ -199,7 +199,7 @@
         
         if([self.tagStack.showTop isEqualToString:@"item"])
         {
-            NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
+            NSDateFormatter *dateFormat = [[[NSDateFormatter alloc] init] autorelease];
             [dateFormat setDateFormat:@"EE, d LLLL yyyy HH:mm:ss Z"];
             NSDate *date = [dateFormat dateFromString:self.element];
             //[dateFormat release];

@@ -114,7 +114,7 @@
     if (_resultsController != nil)
         return _resultsController;
     
-    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+    NSFetchRequest *fetchRequest = [[[NSFetchRequest alloc] init] autorelease];
     NSEntityDescription *entity = [NSEntityDescription
                                    entityForName:FeedItem.entityName
                                    inManagedObjectContext:self.context];
@@ -122,9 +122,9 @@
     [fetchRequest setEntity:entity];
     [fetchRequest setFetchBatchSize:20];
     
-    NSSortDescriptor *sort = [[NSSortDescriptor alloc]
+    NSSortDescriptor *sort = [[[NSSortDescriptor alloc]
                               initWithKey:@"itemPublicationDate"
-                              ascending:NO];
+                              ascending:NO] autorelease];
     [fetchRequest setSortDescriptors:[NSArray arrayWithObject:sort]];
     
     NSPredicate *predicate = [NSPredicate predicateWithFormat: @"feedServerRelationship.serverUrl contains[cd] %@", [SettingsManager sharedInstance].serverURL];
@@ -132,10 +132,10 @@
 
     
     NSFetchedResultsController *theFetchedResultsController =
-    [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest
+    [[[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest
                                         managedObjectContext:self.context
                                           sectionNameKeyPath:nil
-                                                   cacheName:nil];
+                                                   cacheName:nil] autorelease];
     
     self.resultsController = theFetchedResultsController;
     _resultsController.delegate = self;
@@ -279,7 +279,6 @@ shouldChangeTextInRange:(NSRange)range
 
     if([segue.identifier isEqualToString:@"webBrowseerSegue"])
     {
-//        [self.tableView indexPathForCell:sender];
     ((WebViewController*)[segue destinationViewController]).url =
     ((FeedItem*)[self.resultsController objectAtIndexPath:self.tableView.indexPathForSelectedRow]).itemLink;
     }
@@ -289,12 +288,11 @@ shouldChangeTextInRange:(NSRange)range
         for(chk = sender; chk; chk=chk.superview)
             if ([chk isKindOfClass:[FeedUITableViewCell class]])
                 break;
-        assert(chk); // shit happens!!!
         NSIndexPath* sel = [self.tableView indexPathForCell:(UITableViewCell*)chk];
         FeedItem* curItem = [self.resultsController objectAtIndexPath:sel];
         ImageBrowserViewController* im =[segue destinationViewController];
-        im.image =   [UIImage imageWithData:[curItem getItemImage]];
-        //im.image = [[ImageDisplayManager sharedInstance] queueDisplayImageOfFeedItem:<#(FeedItem *)#> //inImageView:<#(UIImageView *)#>]
+        im.item =   curItem;
+
     }
 }
 

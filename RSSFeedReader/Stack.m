@@ -38,7 +38,7 @@
     id obj = nil;
     if(self.m_array.count > 0)
     {
-        obj = [self.m_array lastObject];
+        obj = [[[self.m_array lastObject]retain] autorelease];
         [self.m_array removeLastObject];
     }
     return obj;
@@ -49,7 +49,7 @@
 }
 - (void)printFromBottom
 {
-    NSMutableString *print = [[NSMutableString alloc] init];
+    NSMutableString *print = [[[NSMutableString alloc] init] autorelease];
     [print appendString:@"{\n"];
 
     for(id tobj in self.m_array)
