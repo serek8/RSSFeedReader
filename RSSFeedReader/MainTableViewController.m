@@ -57,13 +57,8 @@
 
 
     NSLog(@"load");
-    // Start NSFetchResultController
-    //NSError* error;
-    //[self.resultsController performFetch:&error];
     [[ParserManager sharedInstance] parse:[SettingsManager sharedInstance].serverURL];
 
-    
-    //[[SettingsManager sharedInstance] updateServerURL];
 
 }
 
@@ -79,8 +74,6 @@
       @"feedServerRelationship.serverUrl contains[cd] %@", [SettingsManager sharedInstance].serverURL]];
      [[ParserManager sharedInstance] parse:[SettingsManager sharedInstance].serverURL];
     [self.resultsController performFetch:&error];
-//    [self.tableView reloadData];
-//    [self.tableView setNeedsDisplay];
 }
 
 
@@ -91,8 +84,6 @@
     {
         // Merging changes to persistant store
         [self.context mergeChangesFromContextDidSaveNotification:notification];
-//        [self.tableView reloadData];
-//        [self.tableView setNeedsDisplay];
     });
 }
 
@@ -217,33 +208,33 @@
     return cell;
 }
 
-//-(BOOL)searchBar:(UISearchBar *)searchBar shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text
-//{
-//
-//    NSPredicate *predicate = nil;
-//    //NSLog([NSString stringWithFormat:@"%@%@", searchBar.text, text]);
-//    
-//    if ([searchBar.text length])
-//    {
-//        
-//        // full text, in my implementation.  Other scope button titles are "Author", "Title"
-//        predicate = [NSPredicate predicateWithFormat:@"feedServerRelationship.serverUrl contains[cd] %@ AND itemTitle CONTAINS[c] %@", [SettingsManager sharedInstance].serverURL, [NSString stringWithFormat:@"%@%@", searchBar.text, text]];
-//        [self.resultsController.fetchRequest setPredicate:predicate];
-//        NSError* error;
-//        [self.resultsController performFetch:&error];
-//        [self.tableView reloadData];
-//    }
-//    else
-//    {
-//        // full text, in my implementation.  Other scope button titles are "Author", "Title"
-//        predicate = [NSPredicate predicateWithFormat:@"feedServerRelationship.serverUrl contains[cd] %@", [SettingsManager sharedInstance].serverURL];
-//        [self.resultsController.fetchRequest setPredicate:predicate];
-//        NSError* error;
-//        [self.resultsController performFetch:&error];
-//        [self.tableView reloadData];
-//    }
-//    return YES;
-//}
+-(BOOL)searchBar:(UISearchBar *)searchBar shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text
+{
+
+    NSPredicate *predicate = nil;
+    //NSLog([NSString stringWithFormat:@"%@%@", searchBar.text, text]);
+    
+    if ([searchBar.text length])
+    {
+        
+        // full text, in my implementation.  Other scope button titles are "Author", "Title"
+        predicate = [NSPredicate predicateWithFormat:@"feedServerRelationship.serverUrl contains[cd] %@ AND itemTitle CONTAINS[c] %@", [SettingsManager sharedInstance].serverURL, [NSString stringWithFormat:@"%@%@", searchBar.text, text]];
+        [self.resultsController.fetchRequest setPredicate:predicate];
+        NSError* error;
+        [self.resultsController performFetch:&error];
+        [self.tableView reloadData];
+    }
+    else
+    {
+        // full text, in my implementation.  Other scope button titles are "Author", "Title"
+        predicate = [NSPredicate predicateWithFormat:@"feedServerRelationship.serverUrl contains[cd] %@", [SettingsManager sharedInstance].serverURL];
+        [self.resultsController.fetchRequest setPredicate:predicate];
+        NSError* error;
+        [self.resultsController performFetch:&error];
+        [self.tableView reloadData];
+    }
+    return YES;
+}
 
 
 
