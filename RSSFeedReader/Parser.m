@@ -91,7 +91,7 @@
     }
     self.parser.delegate=self;
     [self.parser parse];
-    
+    [FeedItem deleteOldFeedItemsInContext: self.context];
 }
 
 // start of tag
@@ -258,7 +258,7 @@
         [self.attributeStack pop];
         return;
     }
-    
+  
 }
 
 

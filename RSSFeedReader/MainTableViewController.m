@@ -13,9 +13,13 @@
 #import "ImageBrowserViewController.h"
 #import "SettingsManager.h"
 #import "ParserManager.h"
+#import "ImageDisplayManager.h"
+#import "Reachability.h"
 
 @interface MainTableViewController () <NSFetchedResultsControllerDelegate, UISearchBarDelegate>
-
+{
+        NetworkStatus networkStatus;
+}
 
 @property (nonatomic, retain) NSManagedObjectContext* context;
 @property (nonatomic,retain) NSFetchedResultsController* resultsController;
@@ -54,14 +58,27 @@
                                                  name:@"SettingsUpdatedNotification"
                                                object:nil];
     
-
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(connectionStatusDidChange:)
+                                                 name:kReachabilityChangedNotification
+                                               object:nil];
 
     NSLog(@"load");
     [[ParserManager sharedInstance] parse:[SettingsManager sharedInstance].serverURL];
 
 
 }
-
+-(void)connectionStatusDidChange:(NSNotification *) notification
+{
+    if([[ParserManager sharedInstance] currentNetworkStatus] == NotReachable)
+    {
+        self.title = @"Connection Lost";
+    }
+    else
+    {
+        self.title = @"Feeds";
+    }
+}
 - (void) receiveTestNotification:(NSNotification *) notification
 {
     
@@ -188,27 +205,19 @@
     FeedUITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"feedTableCell"
                                                                 forIndexPath:indexPath];
 
-
-    cell.titleLabel.text = dat.itemTitle;
+       cell.titleLabel.text = dat.itemTitle;
     cell.summaryLabel.text = dat.itemDetail;
-
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
-        // Download or get images here
-        UIImage *cellImage = [UIImage imageWithData:[dat getItemIcon]];
-        
-        // Use main thread to update the view. View changes are always handled through main thread
-        dispatch_async(dispatch_get_main_queue(), ^{
-            // Refresh image view here
-            cell.imageView2.image=cellImage;
-            [cell setNeedsLayout ];
-        });
-    });
+    
+    [[ImageDisplayManager sharedInstance] queueDisplayImageOfFeedItem:dat
+                                                     inImageView:cell.imageView2];
 
     
     return cell;
 }
 
--(BOOL)searchBar:(UISearchBar *)searchBar shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text
+-(BOOL)searchBar:(UISearchBar *)searchBar
+shouldChangeTextInRange:(NSRange)range
+ replacementText:(NSString *)text
 {
 
     NSPredicate *predicate = nil;
@@ -290,6 +299,7 @@
         FeedItem* curItem = [self.resultsController objectAtIndexPath:sel];
         ImageBrowserViewController* im =[segue destinationViewController];
         im.image =   [UIImage imageWithData:[curItem getItemImage]];
+        //im.image = [[ImageDisplayManager sharedInstance] queueDisplayImageOfFeedItem:<#(FeedItem *)#> //inImageView:<#(UIImageView *)#>]
     }
 }
 

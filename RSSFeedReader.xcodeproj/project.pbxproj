@@ -46,6 +46,9 @@
 		3B2B20681B68DA61002A9CD5 /* _FeedImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B2B20671B68DA61002A9CD5 /* _FeedImage.m */; };
 		3B2B206E1B68DFC5002A9CD5 /* FeedManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B2B206D1B68DFC5002A9CD5 /* FeedManager.m */; };
 		3B2B20711B68E0AD002A9CD5 /* _FeedItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B2B20701B68E0AD002A9CD5 /* _FeedItem.m */; };
+		3B67600C1B6B58ED00A3D57A /* ImageDisplayManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B67600B1B6B58ED00A3D57A /* ImageDisplayManager.m */; };
+		3B67600F1B6B59AD00A3D57A /* ImageDisplayOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B67600E1B6B59AD00A3D57A /* ImageDisplayOperation.m */; };
+		3B6760121B6B6CD200A3D57A /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B6760111B6B6CD200A3D57A /* Reachability.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -106,6 +109,12 @@
 		3B2B206D1B68DFC5002A9CD5 /* FeedManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FeedManager.m; sourceTree = "<group>"; };
 		3B2B206F1B68E0AD002A9CD5 /* _FeedItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = _FeedItem.h; sourceTree = "<group>"; };
 		3B2B20701B68E0AD002A9CD5 /* _FeedItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = _FeedItem.m; sourceTree = "<group>"; };
+		3B67600A1B6B58ED00A3D57A /* ImageDisplayManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageDisplayManager.h; sourceTree = "<group>"; };
+		3B67600B1B6B58ED00A3D57A /* ImageDisplayManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageDisplayManager.m; sourceTree = "<group>"; };
+		3B67600D1B6B59AD00A3D57A /* ImageDisplayOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageDisplayOperation.h; sourceTree = "<group>"; };
+		3B67600E1B6B59AD00A3D57A /* ImageDisplayOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageDisplayOperation.m; sourceTree = "<group>"; };
+		3B6760101B6B6CD200A3D57A /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
+		3B6760111B6B6CD200A3D57A /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -239,6 +248,12 @@
 				3B2B204F1B68D0F6002A9CD5 /* ParserManager.m */,
 				3B2B20501B68D0F6002A9CD5 /* Parser.h */,
 				3B2B20511B68D0F6002A9CD5 /* Parser.m */,
+				3B6760101B6B6CD200A3D57A /* Reachability.h */,
+				3B6760111B6B6CD200A3D57A /* Reachability.m */,
+				3B67600A1B6B58ED00A3D57A /* ImageDisplayManager.h */,
+				3B67600B1B6B58ED00A3D57A /* ImageDisplayManager.m */,
+				3B67600D1B6B59AD00A3D57A /* ImageDisplayOperation.h */,
+				3B67600E1B6B59AD00A3D57A /* ImageDisplayOperation.m */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -364,8 +379,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3B67600F1B6B59AD00A3D57A /* ImageDisplayOperation.m in Sources */,
 				3B2B20711B68E0AD002A9CD5 /* _FeedItem.m in Sources */,
 				3B2B205F1B68D11B002A9CD5 /* Stack.m in Sources */,
+				3B67600C1B6B58ED00A3D57A /* ImageDisplayManager.m in Sources */,
 				3B2B20571B68D0F6002A9CD5 /* Parser.m in Sources */,
 				3B2B20561B68D0F6002A9CD5 /* ParserManager.m in Sources */,
 				3B2B203E1B68CA66002A9CD5 /* _FeedServer.m in Sources */,
@@ -379,6 +396,7 @@
 				3B2B20401B68CA66002A9CD5 /* FeedItem.m in Sources */,
 				3B2B20541B68D0F6002A9CD5 /* WebViewController.m in Sources */,
 				3B2B200D1B68C59C002A9CD5 /* ViewController.m in Sources */,
+				3B6760121B6B6CD200A3D57A /* Reachability.m in Sources */,
 				3B2B203F1B68CA66002A9CD5 /* FeedImage.m in Sources */,
 				3B2B20531B68D0F6002A9CD5 /* MainTableViewController.m in Sources */,
 				3B2B20601B68D11B002A9CD5 /* SettingsManager.m in Sources */,

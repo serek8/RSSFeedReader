@@ -47,28 +47,15 @@
     //if file is not yet downloaded from the internet we fetch it and store in core data
     if(![[NSFileManager defaultManager] fileExistsAtPath:path])
     {
-        [[NSFileManager defaultManager] createDirectoryAtPath:
-         [NSHomeDirectory() stringByAppendingString: @"/Library/Caches/Images"]
-                                  withIntermediateDirectories:YES
-                                                   attributes:nil
-                                                        error:nil];
         
-        BOOL ok = [[NSFileManager defaultManager]
-                   createFileAtPath: path
-                   contents:nil
-                   attributes:nil];
-        if (!ok)
-        {
-            NSLog(@"Error creating file %@", path);
-        }
-        else
-        {
-            
-            
-            NSData* imgData =[NSData dataWithContentsOfURL: [NSURL URLWithString:str]];
+        NSError *error;
+            NSData* imgData = [NSData dataWithContentsOfURL:[NSURL URLWithString:str]
+                                  options:NSDataReadingUncached
+                                    error:&error];
+            //NSData* imgData =[NSData dataWithContentsOfURL: [NSURL URLWithString:str]];
             [imgData writeToFile:path
                       atomically:YES];
-        }
+        
     }
     
     // Now the image must be in core data so we fetch it

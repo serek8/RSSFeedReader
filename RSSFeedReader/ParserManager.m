@@ -9,10 +9,16 @@
 #import "ParserManager.h"
 #include "Parser.h"
 
+#import "SettingsManager.h"
+
+
 @interface ParserManager()
+{
+    NetworkStatus networkStatus;
+}
 
 @property (retain, nonatomic) NSOperationQueue *operationQueue;
-
+@property (retain, nonatomic) Reachability *reachability;
 
 @end
 
@@ -21,6 +27,8 @@
 -(void)dealloc
 {
     self.operationQueue = nil;
+    [self.reachability stopNotifier];
+    self.reachability=nil;
     [super dealloc];
 }
 
@@ -38,14 +46,35 @@
 -(ParserManager*)init
 {
     self.operationQueue = [[[NSOperationQueue alloc] init] autorelease];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(connectionStatusDidChange:)
+                                                 name:kReachabilityChangedNotification
+                                               object:nil];
+    self.reachability = [Reachability reachabilityForInternetConnection];
+    [self.reachability startNotifier];
     return self;
 }
 
+-(NetworkStatus)currentNetworkStatus
+{
+    return self.reachability.currentReachabilityStatus;
+}
+
+-(void)connectionStatusDidChange:(NSNotification *) notification
+{
+    if(networkStatus == NotReachable && self.reachability.currentReachabilityStatus != NotReachable)
+    {
+        [self parse:[SettingsManager sharedInstance].serverURL];
+    }
+    networkStatus=self.reachability.currentReachabilityStatus;
+}
+
+
 -(void)parse: (NSString*) url
 {
-   // self.operationQueue.maxConcurrentOperationCount = 3;
+    if(self.reachability.currentReachabilityStatus ==  NotReachable) return;
     [self.operationQueue addOperation:[Parser createGeneratorWithUrl:url]];
-   
 }
 
 

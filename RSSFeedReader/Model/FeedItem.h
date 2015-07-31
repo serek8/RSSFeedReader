@@ -9,5 +9,6 @@
 
 -(NSData*) getItemIcon;
 -(NSData*) getItemImage;
++(void) deleteOldFeedItemsInContext: (NSManagedObjectContext*) context;
 
 @end

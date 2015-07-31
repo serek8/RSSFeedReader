@@ -26,17 +26,25 @@
     self.imageInScroll.image = self.image;
     self.scrollView.contentSize = self.imageInScroll.image.size;
     self.scrollView.minimumZoomScale = 0.75;
-    self.scrollView.maximumZoomScale=4;
+    self.scrollView.maximumZoomScale=3;
     
     self.scrollView.delegate = self;
+    
     
     // Do any additional setup after loading the view.
 }
 
+-(void)viewDidAppear:(BOOL)animated{
+    self.imageInScroll.center = self.scrollView.center;
+}
+
+
 -(UIView*)viewForZoomingInScrollView:(UIScrollView *)scrollView
 {
     return self.imageInScroll;
+    
 }
+
 
 
 - (void)didReceiveMemoryWarning {
