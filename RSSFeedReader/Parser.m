@@ -27,6 +27,7 @@
 //@property (nonatomic, strong) NSString *url;
 @property (nonatomic, strong) FeedItem* item;
 @property (nonatomic, strong) FeedServer* server;
+@property (nonatomic, strong) NSManagedObjectContext* mainContext;
 @property (nonatomic, strong) NSManagedObjectContext* context;
 @property (nonatomic, strong) NSString* url;
 @property (nonatomic, strong) Stack* tagStack;
@@ -47,6 +48,8 @@
     self.attributeStack = nil;
     self.element = nil;
     self.parser = nil;
+    self.context = nil;
+    
     NSLog(@"XXX");
    [super dealloc];
 }
@@ -56,11 +59,8 @@
     Parser* inst = [[[Parser alloc] init]autorelease];
     if (inst)
     {
-
+        inst.mainContext =((AppDelegate*)[UIApplication sharedApplication].delegate).managedObjectContext;
         inst.url = url;
-        inst.context = [[[NSManagedObjectContext alloc] initWithConcurrencyType:NSPrivateQueueConcurrencyType] autorelease];
-        inst.context.persistentStoreCoordinator = ((AppDelegate*)[UIApplication sharedApplication].delegate).persistentStoreCoordinator;
-    
         inst.tagStack = [[[Stack alloc] init] autorelease];
         inst.attributeStack = [[[Stack alloc] init] autorelease];
         inst.parser = [[[NSXMLParser alloc] initWithContentsOfURL: [NSURL URLWithString:[SettingsManager sharedInstance].serverURL]] autorelease];
@@ -72,12 +72,26 @@
     return inst;
 }
 
-
+-(void)contextChanged:(NSNotification*)notification
+{
+    //NSLog(notification.description);
+    dispatch_async(dispatch_get_main_queue(), ^
+                   {
+                       // Merging changes to persistant store
+                       [self.mainContext mergeChangesFromContextDidSaveNotification:notification];
+                       NSLog(@"Changes merged");
+                   });
+}
 
 -(void) main
 {
-   
-        
+
+    self.context = [[[NSManagedObjectContext alloc] init] autorelease];
+    self.context.persistentStoreCoordinator = self.mainContext.persistentStoreCoordinator;
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(contextChanged:)
+                                                 name:NSManagedObjectContextDidSaveNotification
+                                               object:self.context];
     
     // if server exists
     if((self.server = [FeedServer getFeedServerWithURL : self.url

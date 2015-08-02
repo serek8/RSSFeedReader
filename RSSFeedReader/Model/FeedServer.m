@@ -34,6 +34,15 @@
     else
         return YES;
 }
+
+-(NSString*) findServerIconInternetPath
+{
+    NSString *str;
+    str = [self.serverImageUrl stringByReplacingOccurrencesOfString:@"\n" withString:@""];
+    str = [str stringByReplacingOccurrencesOfString:@" " withString:@""];
+    return str;
+}
+
 -(NSData*) getServerIcon
 {
     NSString *str;

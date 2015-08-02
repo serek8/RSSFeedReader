@@ -45,6 +45,7 @@
 
 -(ParserManager*)init
 {
+    if(![super init]) return nil;
     self.operationQueue = [[[NSOperationQueue alloc] init] autorelease];
     
     [[NSNotificationCenter defaultCenter] addObserver:self

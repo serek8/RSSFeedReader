@@ -16,6 +16,6 @@
 
 @property (nonatomic, retain) NSOperationQueue* operationQueue;
 +(instancetype)sharedInstance;
--(void)queueDisplayImageOfFeedItem:(FeedItem*)item inImageView:(UIImageView*)imageView;
+-(void)queueDisplayImageOfFeedItem:(FeedItem*)item inImageView:(UIImageView*)image;
 
 @end

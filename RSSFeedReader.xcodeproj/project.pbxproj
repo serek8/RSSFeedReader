@@ -24,7 +24,6 @@
 		3B2B20041B68C59C002A9CD5 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B2B20031B68C59C002A9CD5 /* main.m */; };
 		3B2B20071B68C59C002A9CD5 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B2B20061B68C59C002A9CD5 /* AppDelegate.m */; };
 		3B2B200A1B68C59C002A9CD5 /* RSSFeedReader.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 3B2B20081B68C59C002A9CD5 /* RSSFeedReader.xcdatamodeld */; };
-		3B2B200D1B68C59C002A9CD5 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B2B200C1B68C59C002A9CD5 /* ViewController.m */; };
 		3B2B20121B68C59C002A9CD5 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3B2B20111B68C59C002A9CD5 /* Images.xcassets */; };
 		3B2B20151B68C59C002A9CD5 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3B2B20131B68C59C002A9CD5 /* LaunchScreen.xib */; };
 		3B2B20211B68C59D002A9CD5 /* RSSFeedReaderTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B2B20201B68C59D002A9CD5 /* RSSFeedReaderTests.m */; };
@@ -68,8 +67,6 @@
 		3B2B20051B68C59C002A9CD5 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		3B2B20061B68C59C002A9CD5 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		3B2B20091B68C59C002A9CD5 /* RSSFeedReader.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = RSSFeedReader.xcdatamodel; sourceTree = "<group>"; };
-		3B2B200B1B68C59C002A9CD5 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		3B2B200C1B68C59C002A9CD5 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		3B2B20111B68C59C002A9CD5 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		3B2B20141B68C59C002A9CD5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
 		3B2B201A1B68C59D002A9CD5 /* RSSFeedReaderTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RSSFeedReaderTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -161,8 +158,6 @@
 				3B2B202F1B68CA66002A9CD5 /* Model */,
 				3B2B20051B68C59C002A9CD5 /* AppDelegate.h */,
 				3B2B20061B68C59C002A9CD5 /* AppDelegate.m */,
-				3B2B200B1B68C59C002A9CD5 /* ViewController.h */,
-				3B2B200C1B68C59C002A9CD5 /* ViewController.m */,
 				3B2B20111B68C59C002A9CD5 /* Images.xcassets */,
 				3B2B20131B68C59C002A9CD5 /* LaunchScreen.xib */,
 				3B2B20081B68C59C002A9CD5 /* RSSFeedReader.xcdatamodeld */,
@@ -395,7 +390,6 @@
 				3B2B20551B68D0F6002A9CD5 /* ImageBrowserViewController.m in Sources */,
 				3B2B20401B68CA66002A9CD5 /* FeedItem.m in Sources */,
 				3B2B20541B68D0F6002A9CD5 /* WebViewController.m in Sources */,
-				3B2B200D1B68C59C002A9CD5 /* ViewController.m in Sources */,
 				3B6760121B6B6CD200A3D57A /* Reachability.m in Sources */,
 				3B2B203F1B68CA66002A9CD5 /* FeedImage.m in Sources */,
 				3B2B20531B68D0F6002A9CD5 /* MainTableViewController.m in Sources */,

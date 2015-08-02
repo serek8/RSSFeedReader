@@ -48,11 +48,6 @@
     // I will use that context only for readingnfrom UITableView on the main thread
     self.context = ((AppDelegate*)[UIApplication sharedApplication].delegate).managedObjectContext;
 
-    // Create notification observer which chcecks id another context is writing data to it
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(contextChanged:)
-                                                 name:NSManagedObjectContextDidSaveNotification
-                                               object:nil];
     
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(settingsChanged:)
@@ -96,18 +91,6 @@
 }
 
 
-// The callback for changing context value
--(void)contextChanged:(NSNotification*)notification
-{
-    dispatch_async(dispatch_get_main_queue(), ^
-    {
-        // Merging changes to persistant store
-        [self.context mergeChangesFromContextDidSaveNotification:notification];
-        
-    });
-}
-
-
 
 -(NSFetchedResultsController*)resultsController
 {
@@ -120,7 +103,7 @@
                                    inManagedObjectContext:self.context];
     
     [fetchRequest setEntity:entity];
-    [fetchRequest setFetchBatchSize:20];
+    //[fetchRequest setFetchBatchSize:20];
     
     NSSortDescriptor *sort = [[[NSSortDescriptor alloc]
                               initWithKey:@"itemPublicationDate"
@@ -168,8 +151,6 @@
             break;
             
         case NSFetchedResultsChangeUpdate:
-            ///[self configureCell:[self.tableView cellForRowAtIndexPath:indexPath]
-                 //   atIndexPath:indexPath];
             break;
             
         case NSFetchedResultsChangeMove:
@@ -261,9 +242,11 @@ shouldChangeTextInRange:(NSRange)range
 -(void)controllerDidChangeContent:(NSFetchedResultsController *)controller
 {
     // The fetch controller has sent all current change notifications, so tell the table view to process all updates.
+    //[self.tableView reloadData];
     [self.tableView endUpdates];
-    NSError* error;
-    [self.context save:&error];
+    
+ //   NSError* error;
+  //  [self.context save:&error];
 }
 
 

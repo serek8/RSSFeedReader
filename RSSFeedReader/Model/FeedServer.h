@@ -13,6 +13,6 @@
 
 
 -(NSData*) getServerIcon;
-
+-(NSString*) findServerIconInternetPath;
 
 @end

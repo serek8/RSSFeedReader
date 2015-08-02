@@ -28,7 +28,7 @@
     self = [super init];
     if(!self) return nil;
     
-    self.operationQueue = [[[NSOperationQueue alloc]init]autorelease];
+    self.operationQueue = [[NSOperationQueue alloc]init];
     return self;
 }
 
