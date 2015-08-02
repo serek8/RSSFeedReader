@@ -116,6 +116,32 @@
 }
 
 //
+-(NSString*) findImageInternetPath
+{
+    NSArray *icons = self.feedImageRelationship.allObjects;
+    int iconID=-1;
+    int square=((FeedImage*)[icons firstObject]).imageWidth.intValue * ((FeedImage*)[icons firstObject]).imageHeight.intValue;
+    // I am looking for the smallest icon
+    for (int i=0; i<icons.count; i++)
+    {
+        if(square >=
+           ((FeedImage*)[icons objectAtIndex:i]).imageWidth.intValue *
+           ((FeedImage*)[icons objectAtIndex:i]).imageHeight.intValue)
+        {
+            iconID = i;
+            square = ((FeedImage*)[icons objectAtIndex:i]).imageWidth.intValue *
+            ((FeedImage*)[icons objectAtIndex:i]).imageHeight.intValue;
+        }
+        
+    }
+    if(iconID == -1)
+    {
+        return [self findIconInternetPath];
+    }
+    return ((FeedImage*)[icons objectAtIndex:iconID]).imageUrl;
+}
+
+
 -(NSData*) getItemImage
 {
     NSArray *icons = self.feedImageRelationship.allObjects;

@@ -7,9 +7,7 @@
 //
 
 #import "ParserManager.h"
-#import "Parser.h"
 
-#import "SettingsManager.h"
 
 
 @interface ParserManager()
@@ -46,7 +44,7 @@
 -(ParserManager*)init
 {
     if(![super init]) return nil;
-    self.operationQueue = [[[NSOperationQueue alloc] init] autorelease];
+    self.operationQueue = [[NSOperationQueue alloc] init];
     
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(connectionStatusDidChange:)

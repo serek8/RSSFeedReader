@@ -11,6 +11,10 @@
 #import "FeedServer.h"
 #import "AppDelegate.h"
 #import "Stack.h"
+#import "FeedImage.h"
+#import <CoreData/CoreData.h>
+#import "NSString+MD5.h"
+#import "SettingsManager.h"
 
 @interface Parser : NSOperation <NSXMLParserDelegate>
 

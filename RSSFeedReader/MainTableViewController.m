@@ -5,23 +5,15 @@
 //  Created by Jan Seredynski on 23/07/15.
 //  Copyright (c) 2015 Jan Seredynski. All rights reserved.
 //
-#import "WebViewController.h"
+
 #import "MainTableViewController.h"
-#import "AppDelegate.h"
-#import "FeedItem.h"
-#import "FeedUITableViewCell.h"
-#import "ImageBrowserViewController.h"
-#import "SettingsManager.h"
-#import "ParserManager.h"
-#import "ImageDisplayManager.h"
-#import "Reachability.h"
 
 @interface MainTableViewController () <NSFetchedResultsControllerDelegate, UISearchBarDelegate>
 {
         NetworkStatus networkStatus;
 }
 
-@property (nonatomic, retain) NSManagedObjectContext* context;
+@property (nonatomic, retain) NSManagedObjectContext* mainContext;
 @property (nonatomic,retain) NSFetchedResultsController* resultsController;
 
 
@@ -30,13 +22,12 @@
 
 @implementation MainTableViewController
 
-// I set to nil every pointer I used.
+
 -(void)dealloc
 {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
-    self.context = nil;
-    NSLog(@"dealloc");
-    
+    self.mainContext = nil;
+    self.resultsController = nil;
     [super dealloc];
 }
 
@@ -45,13 +36,13 @@
 {
     [super viewDidLoad];
     
-    // I will use that context only for readingnfrom UITableView on the main thread
-    self.context = ((AppDelegate*)[UIApplication sharedApplication].delegate).managedObjectContext;
+
+    self.mainContext = ((AppDelegate*)[UIApplication sharedApplication].delegate).managedObjectContext;
 
     
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(settingsChanged:)
-                                                 name:@"SettingsUpdatedNotification"
+                                                 name:SettingsUpdatedNotification
                                                object:nil];
     
     [[NSNotificationCenter defaultCenter] addObserver:self
@@ -77,8 +68,6 @@
 }
 - (void) settingsChanged:(NSNotification *) notification
 {
-    
-        NSLog (@"Successfully received the test notification!");
 
     NSError* error;
     
@@ -100,7 +89,7 @@
     NSFetchRequest *fetchRequest = [[[NSFetchRequest alloc] init] autorelease];
     NSEntityDescription *entity = [NSEntityDescription
                                    entityForName:FeedItem.entityName
-                                   inManagedObjectContext:self.context];
+                                   inManagedObjectContext:self.mainContext];
     
     [fetchRequest setEntity:entity];
     //[fetchRequest setFetchBatchSize:20];
@@ -116,7 +105,7 @@
     
     NSFetchedResultsController *theFetchedResultsController =
     [[[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest
-                                        managedObjectContext:self.context
+                                        managedObjectContext:self.mainContext
                                           sectionNameKeyPath:nil
                                                    cacheName:nil] autorelease];
     
@@ -185,16 +174,14 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView
          cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    FeedItem* dat = [self.resultsController objectAtIndexPath:indexPath];
-    
-    //
+    FeedItem* feedItem = [self.resultsController objectAtIndexPath:indexPath];
     FeedUITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"feedTableCell"
                                                                 forIndexPath:indexPath];
 
-       cell.titleLabel.text = dat.itemTitle;
-    cell.summaryLabel.text = dat.itemDetail;
+       cell.titleLabel.text = feedItem.itemTitle;
+    cell.summaryLabel.text = feedItem.itemDetail;
     
-    [[ImageDisplayManager sharedInstance] queueDisplayImageOfFeedItem:dat
+    [[ImageDisplayManager sharedInstance] queueDisplayImageOfFeedItem:feedItem
                                                      inImageView:cell.imageView2];
 
     
@@ -205,10 +192,7 @@
 shouldChangeTextInRange:(NSRange)range
  replacementText:(NSString *)text
 {
-
     NSPredicate *predicate = nil;
-    //NSLog([NSString stringWithFormat:@"%@%@", searchBar.text, text]);
-    
     if ([searchBar.text length])
     {
         
@@ -242,11 +226,7 @@ shouldChangeTextInRange:(NSRange)range
 -(void)controllerDidChangeContent:(NSFetchedResultsController *)controller
 {
     // The fetch controller has sent all current change notifications, so tell the table view to process all updates.
-    //[self.tableView reloadData];
     [self.tableView endUpdates];
-    
- //   NSError* error;
-  //  [self.context save:&error];
 }
 
 

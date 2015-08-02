@@ -8,7 +8,18 @@
 
 #import "SettingsManager.h"
 
+
+ NSString * const SettingsUpdatedNotification = @"SettingsUpdatedNotification";
+
 @implementation SettingsManager
+
+
+-(void)dealloc
+{
+
+    [super dealloc];
+}
+
 
 
 +(instancetype)sharedInstance
@@ -82,7 +93,7 @@
         _serverURL = @DEFAULT_FEED_URL;
     }
     [[NSNotificationCenter defaultCenter]
-     postNotificationName:@"SettingsUpdatedNotification"
+     postNotificationName:SettingsUpdatedNotification
      object:nil];
     
     

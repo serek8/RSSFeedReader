@@ -14,13 +14,21 @@
 
 
 @property (nonatomic, retain) UIImageView *imageView;
-//@property (nonatomic, retain) FeedItem *item;
 @property (nonatomic, retain) NSString *imageInternetPath;
 
 @end
 
 
 @implementation ImageDisplayOperation
+
+
+-(void)dealloc
+{
+    self.imageView = nil;
+    self.imageInternetPath = nil;
+    [super dealloc];
+}
+
 
 -(instancetype)initWithIconOfFeedItem:(FeedItem*)item forImageView:(UIImageView*)imageView
 {

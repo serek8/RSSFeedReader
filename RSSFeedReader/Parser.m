@@ -7,22 +7,25 @@
 //
 
 #import "Parser.h"
-#import "FeedItem.h"
-#import "FeedImage.h"
-#import <CoreData/CoreData.h>
-#import "NSString+MD5.h"
-#import "SettingsManager.h"
+
+
+
+typedef enum : NSInteger {
+    NewInstance = 0,
+    DuplicateInstance
+} ItemAvaliability;
 
 
 @interface Parser()
 {
+
+    
     //  + - flag summary - +
     // 0 - parsing works
     // 1 - duplicate found
-    bool _flag;
+    int _flag;
     
 }
-
 
 //@property (nonatomic, strong) NSString *url;
 @property (nonatomic, strong) FeedItem* item;
@@ -49,8 +52,6 @@
     self.element = nil;
     self.parser = nil;
     self.context = nil;
-    
-    NSLog(@"XXX");
    [super dealloc];
 }
 
@@ -74,12 +75,10 @@
 
 -(void)contextChanged:(NSNotification*)notification
 {
-    //NSLog(notification.description);
     dispatch_async(dispatch_get_main_queue(), ^
                    {
                        // Merging changes to persistant store
                        [self.mainContext mergeChangesFromContextDidSaveNotification:notification];
-                       NSLog(@"Changes merged");
                    });
 }
 
@@ -98,7 +97,6 @@
                                       inContext: self.context]));
     else
     {
-        NSLog(@"Serwer not set !!. We are creating a new place for it ;-)");
         self.server = [FeedServer insertInManagedObjectContext:self.context];
         self.server.serverUrl = self.url;
         self.server.serverName = self.url;

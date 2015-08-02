@@ -47,7 +47,7 @@
 		3B2B20711B68E0AD002A9CD5 /* _FeedItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B2B20701B68E0AD002A9CD5 /* _FeedItem.m */; };
 		3B67600C1B6B58ED00A3D57A /* ImageDisplayManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B67600B1B6B58ED00A3D57A /* ImageDisplayManager.m */; };
 		3B67600F1B6B59AD00A3D57A /* ImageDisplayOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B67600E1B6B59AD00A3D57A /* ImageDisplayOperation.m */; };
-		3B6760121B6B6CD200A3D57A /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B6760111B6B6CD200A3D57A /* Reachability.m */; };
+		3B6760121B6B6CD200A3D57A /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B6760111B6B6CD200A3D57A /* Reachability.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -173,11 +173,11 @@
 				3B2B20581B68D10A002A9CD5 /* NSString+MD5.h */,
 				3B2B20591B68D10A002A9CD5 /* NSString+MD5.m */,
 				3B2B20021B68C59C002A9CD5 /* Info.plist */,
+				3B6760101B6B6CD200A3D57A /* Reachability.h */,
+				3B6760111B6B6CD200A3D57A /* Reachability.m */,
 				3B2B20031B68C59C002A9CD5 /* main.m */,
 				3B2B205B1B68D11B002A9CD5 /* Stack.h */,
 				3B2B205C1B68D11B002A9CD5 /* Stack.m */,
-				3B2B205D1B68D11B002A9CD5 /* SettingsManager.h */,
-				3B2B205E1B68D11B002A9CD5 /* SettingsManager.m */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -243,10 +243,10 @@
 				3B2B204F1B68D0F6002A9CD5 /* ParserManager.m */,
 				3B2B20501B68D0F6002A9CD5 /* Parser.h */,
 				3B2B20511B68D0F6002A9CD5 /* Parser.m */,
-				3B6760101B6B6CD200A3D57A /* Reachability.h */,
-				3B6760111B6B6CD200A3D57A /* Reachability.m */,
 				3B67600A1B6B58ED00A3D57A /* ImageDisplayManager.h */,
 				3B67600B1B6B58ED00A3D57A /* ImageDisplayManager.m */,
+				3B2B205D1B68D11B002A9CD5 /* SettingsManager.h */,
+				3B2B205E1B68D11B002A9CD5 /* SettingsManager.m */,
 				3B67600D1B6B59AD00A3D57A /* ImageDisplayOperation.h */,
 				3B67600E1B6B59AD00A3D57A /* ImageDisplayOperation.m */,
 			);

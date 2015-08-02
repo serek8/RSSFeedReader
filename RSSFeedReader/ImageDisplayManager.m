@@ -17,6 +17,8 @@
     static dispatch_once_t once;
     static ImageDisplayManager* sharedInstance;
     dispatch_once(&once, ^{
+        
+        // DO NOT DEALLOC !!
         sharedInstance = [[self alloc] init];
     });
     return sharedInstance;
@@ -28,7 +30,7 @@
     self = [super init];
     if(!self) return nil;
     
-    self.operationQueue = [[NSOperationQueue alloc]init];
+    self.operationQueue = [[[NSOperationQueue alloc]init] autorelease];
     return self;
 }
 

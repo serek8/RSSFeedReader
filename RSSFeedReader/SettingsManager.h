@@ -9,6 +9,8 @@
 #import <Foundation/Foundation.h>
 #define DEFAULT_FEED_URL "http://feeds.bbci.co.uk/news/rss.xml"
 
+extern NSString *const SettingsUpdatedNotification;
+
 @interface SettingsManager : NSObject
 
 @property (nonatomic, strong) NSString* serverURL;

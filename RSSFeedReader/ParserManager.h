@@ -8,6 +8,8 @@
 
 #import <Foundation/Foundation.h>
 #import "Reachability.h"
+#import "Parser.h"
+#import "SettingsManager.h"
 
 @interface ParserManager : NSObject
 

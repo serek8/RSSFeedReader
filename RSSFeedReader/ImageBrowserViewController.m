@@ -14,6 +14,13 @@
 
 @implementation ImageBrowserViewController
 
+- (void)dealloc {
+    self.imageInternetPath = nil;
+    [_scrollView release];
+    [_imageInScroll release];
+    [super dealloc];
+}
+
 -(instancetype)init
 {
     self = [super init];
@@ -23,8 +30,9 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [[[[NSOperationQueue alloc] init] autorelease] addOperationWithBlock:^{
-        self.image = [UIImage imageWithData:[self.item getItemImage]];
+    self.imageInternetPath = [self.item findImageInternetPath];
+    [[[NSOperationQueue alloc] init] addOperationWithBlock:^{
+        self.image = [UIImage imageWithData:[self downloadItemMedia]];
         dispatch_async(dispatch_get_main_queue(), ^{
             self.imageInScroll.image = self.image;
             self.imageInScroll.center = self.scrollView.center;
@@ -77,24 +85,30 @@
 
 
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+-(NSData*) downloadItemMedia
+{
+    
+    NSString* path = [NSHomeDirectory() stringByAppendingString:
+                      [NSString stringWithFormat:@"/Library/Caches/Images/%@",
+                       [self.imageInternetPath md5]]];
+    
+    //if file is not yet downloaded from the internet we fetch it and store in core data
+    if(![[NSFileManager defaultManager] fileExistsAtPath:path])
+    {
+        
+        
+        NSData* imgData =  [NSData dataWithContentsOfURL:
+                            [NSURL URLWithString:self.imageInternetPath]];
+        [imgData writeToFile:path
+                  atomically:YES];
+        
+    }
+    
+    // Now the image must be in core data so we fetch it
+    
+    NSData* retData = [NSData dataWithContentsOfFile:path];
+    return retData;
 }
 
-/*
-#pragma mark - Navigation
 
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
-
-- (void)dealloc {
-    [_scrollView release];
-    [_imageInScroll release];
-    [super dealloc];
-}
 @end
