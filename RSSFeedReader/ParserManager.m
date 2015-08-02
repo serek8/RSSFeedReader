@@ -7,7 +7,7 @@
 //
 
 #import "ParserManager.h"
-#include "Parser.h"
+#import "Parser.h"
 
 #import "SettingsManager.h"
 

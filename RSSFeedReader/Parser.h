@@ -10,7 +10,7 @@
 #import "FeedItem.h"
 #import "FeedServer.h"
 #import "AppDelegate.h"
-#include "Stack.h"
+#import "Stack.h"
 
 @interface Parser : NSOperation <NSXMLParserDelegate>
 

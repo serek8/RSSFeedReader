@@ -1,7 +1,7 @@
 #import "FeedItem.h"
 #import "FeedImage.h"
-#include "NSString+MD5.h"
-#include "FeedServer.h"
+#import "NSString+MD5.h"
+#import "FeedServer.h"
 
 @interface FeedItem ()
 

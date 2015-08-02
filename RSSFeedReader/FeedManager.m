@@ -11,7 +11,7 @@
 #import "FeedServer.h"
 #import "AppDelegate.h"
 #import "FeedItem.h"
-#include "Parser.h"
+#import "Parser.h"
 
 @interface FeedManager()
 
