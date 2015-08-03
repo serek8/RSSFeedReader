@@ -50,20 +50,25 @@
                                                  name:kReachabilityChangedNotification
                                                object:nil];
 
-    NSLog(@"load");
     [[ParserManager sharedInstance] parse:[SettingsManager sharedInstance].serverURL];
-
-
 }
+
+-(void)viewWillAppear:(BOOL)animated
+{
+    [self connectionStatusDidChange:nil];
+}
+
 -(void)connectionStatusDidChange:(NSNotification *) notification
 {
     if([[ParserManager sharedInstance] currentNetworkStatus] == NotReachable)
     {
-        self.title = @"Connection Lost";
+        
+        self.title = NSLocalizedString(@"ConnectionLost", nil);
+        //self.title = @"Connection Lost";
     }
     else
     {
-        self.title = @"Feeds";
+        self.title = NSLocalizedString(@"Feeds", nil);
     }
 }
 - (void) settingsChanged:(NSNotification *) notification

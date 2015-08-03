@@ -12,14 +12,12 @@
 @property (strong, nonatomic) IBOutlet UIScrollView *scrollView;
 @property (strong, nonatomic) IBOutlet UIImageView *imageInScroll;
 @property (strong, nonatomic) NSString* imageInternetPath;
-@property (strong, nonatomic) UIImage *image;
 @end
 
 @implementation ImageBrowserViewController
 
 - (void)dealloc {
     self.imageInternetPath = nil;
-    self.image = nil;
     self.item = nil;
     [_scrollView release];
     [_imageInScroll release];
@@ -37,14 +35,15 @@
     [super viewDidLoad];
     self.imageInternetPath = [self.item findImageInternetPath];
     [[[NSOperationQueue alloc] init] addOperationWithBlock:^{
-        self.image = [UIImage imageWithData:[ImageDisplayManager downloadItemImageWithInternetPath:self.imageInternetPath]];
-        dispatch_async(dispatch_get_main_queue(), ^{
-            self.imageInScroll.image = self.image;
-            self.imageInScroll.center = self.scrollView.center;
-        });
+        [ImageDisplayManager downloadItemImageWithInternetPath:self.imageInternetPath
+                                          withCopmpletionBlock:^(NSData *imageData)
+         {
+             self.imageInScroll.image = [UIImage imageWithData:imageData];
+             self.scrollView.contentSize = self.imageInScroll.image.size;
+             [self centerScrollViewContents ];
+         }];
     }];
-    self.imageInScroll.image = self.image;
-    self.scrollView.contentSize = self.imageInScroll.image.size;
+    
     self.scrollView.minimumZoomScale = 0.75;
     self.scrollView.maximumZoomScale=3;
     
@@ -54,30 +53,28 @@
     // Do any additional setup after loading the view.
 }
 
+- (void)centerScrollViewContents {
+    CGSize boundsSize = self.scrollView.bounds.size;
+    CGRect contentsFrame = CGRectMake(0, 0, self.imageInScroll.image.size.width, self.imageInScroll.image.size.height);
+    
+    if (contentsFrame.size.width < boundsSize.width) {
+        contentsFrame.origin.x = (boundsSize.width - contentsFrame.size.width) / 2;
+    } else {
+        contentsFrame.origin.x = 0.0f;
+    }
+    
+    if (contentsFrame.size.height < boundsSize.height) {
+        contentsFrame.origin.y = (boundsSize.height - contentsFrame.size.height) / 2;
+    } else {
+        contentsFrame.origin.y = 0.0f;
+    }
+    
+    self.imageInScroll.frame = contentsFrame;
+}
+
 - (void)scrollViewDidZoom:(UIScrollView *)scrollView
 {
-    
-    // center the image as it becomes smaller than the size of the screen
-    CGSize boundsSize = self.scrollView.bounds.size;
-    CGRect frameToCenter = self.imageInScroll.frame;
-    
-    // center horizontally
-    if (frameToCenter.size.width < boundsSize.width)
-    {
-        frameToCenter.origin.x = (boundsSize.width - frameToCenter.size.width) / 2;
-    } else {
-        frameToCenter.origin.x = 0;
-    }
-    
-    // center vertically
-    if (frameToCenter.size.height < boundsSize.height)
-    {
-        frameToCenter.origin.y = (boundsSize.height - frameToCenter.size.height) / 2;
-    } else {
-        frameToCenter.origin.y = 0;
-    }
-    
-    self.imageInScroll.frame = frameToCenter;
+    [self centerScrollViewContents];
     
 }
 

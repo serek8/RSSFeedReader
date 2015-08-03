@@ -13,7 +13,7 @@
                    inContext: (NSManagedObjectContext*) context;
 
 
--(NSData*) getServerIcon;
+
 -(NSString*) findServerIconInternetPath;
 
 @end

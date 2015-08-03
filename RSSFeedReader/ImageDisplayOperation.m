@@ -42,14 +42,12 @@
 
 -(void)main
 {
-        NSData *imageData;
-    imageData = [ImageDisplayManager downloadItemImageWithInternetPath:self.imageInternetPath];
 
-        dispatch_async(dispatch_get_main_queue(), ^{
-        //self.imageView.image = [UIImage imageWithData:imageData];
-        [self.imageView setImage:[UIImage imageWithData:imageData]];
-
-        });
+        [ImageDisplayManager downloadItemImageWithInternetPath:self.imageInternetPath
+                                          withCopmpletionBlock:^(NSData *imageData) {
+                                              [self.imageView setImage:[UIImage imageWithData:imageData]];
+                                          }];
+   
 }
 
 

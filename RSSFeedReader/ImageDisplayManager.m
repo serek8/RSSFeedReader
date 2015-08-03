@@ -43,9 +43,9 @@
     [self.operationQueue addOperation: loadImageoperation];
 }
 
-+(NSData*) downloadItemImageWithInternetPath:(NSString*)imageInternetPath
+
++(void) downloadItemImageWithInternetPath:(NSString*)imageInternetPath withCopmpletionBlock:(completionBlock)block
 {
-    
     NSString* path = [NSHomeDirectory() stringByAppendingString:
                       [NSString stringWithFormat:@"/Library/Caches/Images/%@",
                        [imageInternetPath md5]]];
@@ -59,15 +59,15 @@
                             [NSURL URLWithString:imageInternetPath]];
         [imgData writeToFile:path
                   atomically:YES];
-        
     }
     
     // Now the image must be in core data so we fetch it
     
     NSData* retData = [NSData dataWithContentsOfFile:path];
-    return retData;
+    dispatch_sync(dispatch_get_main_queue(), ^{
+        block(retData);
+    });
 }
-
 
 
 @end

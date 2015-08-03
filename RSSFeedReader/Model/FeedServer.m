@@ -43,16 +43,7 @@
     return str;
 }
 
--(NSData*) getServerIcon
-{
-    NSString *str;
-    str = [self.serverImageUrl stringByReplacingOccurrencesOfString:@"\n" withString:@""];
-    str = [str stringByReplacingOccurrencesOfString:@" " withString:@""];
-    
-    NSData* retData =  [ImageDisplayManager downloadItemImageWithInternetPath:str];
-    
-    return retData;
-}
+
 
 
 @end
