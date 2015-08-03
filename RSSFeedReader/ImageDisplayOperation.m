@@ -43,7 +43,7 @@
 -(void)main
 {
         NSData *imageData;
-    imageData = [self downloadItemMedia];
+    imageData = [ImageDisplayManager downloadItemImageWithInternetPath:self.imageInternetPath];
 
         dispatch_async(dispatch_get_main_queue(), ^{
         //self.imageView.image = [UIImage imageWithData:imageData];
@@ -52,30 +52,6 @@
         });
 }
 
--(NSData*) downloadItemMedia
-{
-    
-    NSString* path = [NSHomeDirectory() stringByAppendingString:
-                      [NSString stringWithFormat:@"/Library/Caches/Images/%@",
-                       [self.imageInternetPath md5]]];
-    
-    //if file is not yet downloaded from the internet we fetch it and store in core data
-    if(![[NSFileManager defaultManager] fileExistsAtPath:path])
-    {
-        
-        
-        NSData* imgData =  [NSData dataWithContentsOfURL:
-                            [NSURL URLWithString:self.imageInternetPath]];
-        [imgData writeToFile:path
-                  atomically:YES];
-        
-    }
-    
-    // Now the image must be in core data so we fetch it
-    
-    NSData* retData = [NSData dataWithContentsOfFile:path];
-    return retData;
-}
 
 
 

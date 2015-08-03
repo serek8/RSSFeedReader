@@ -25,6 +25,15 @@
 
 @implementation FeedManager
 
+-(void)dealloc
+{
+    self.serverURL = nil;
+    self.context = nil;
+    self.operationQueue = nil;
+    [super dealloc];
+}
+
+
 +(instancetype)sharedInstance
 {
     static dispatch_once_t once;

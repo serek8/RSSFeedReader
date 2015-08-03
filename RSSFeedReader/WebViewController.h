@@ -10,10 +10,9 @@
 
 @interface WebViewController : UIViewController
 
-@property (strong, nonatomic) IBOutlet UIWebView *webView;
+
 @property (strong, nonatomic) NSString *url;
 
-@property (strong, nonatomic) IBOutlet UIActivityIndicatorView *indicator;
 
 
 @end

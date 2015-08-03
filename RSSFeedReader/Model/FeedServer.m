@@ -49,8 +49,7 @@
     str = [self.serverImageUrl stringByReplacingOccurrencesOfString:@"\n" withString:@""];
     str = [str stringByReplacingOccurrencesOfString:@" " withString:@""];
     
-    
-    NSData* retData = [FeedImage downloadItemImageWithInternetPath: str];
+    NSData* retData =  [ImageDisplayManager downloadItemImageWithInternetPath:str];
     
     return retData;
 }

@@ -16,7 +16,7 @@
 
 -(void)dealloc
 {
-
+    self.serverURL = nil;
     [super dealloc];
 }
 

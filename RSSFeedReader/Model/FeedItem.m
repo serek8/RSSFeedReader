@@ -21,10 +21,9 @@
     [request setPredicate:searchFilter];
     NSError *error = nil;
     NSArray *results = [context executeFetchRequest:request error:&error];
-    if(results.count == 0) // if such item not exits in database
-        return NO;
-    else
-        return YES;
+    // if such item exits in database
+    if(results.count) return YES;
+    return false;
 }
 
 
@@ -84,38 +83,7 @@
 
 
 
--(NSData*) getItemIcon
-{
-    NSArray *icons = self.feedImageRelationship.allObjects;
-    int iconID=-1;
-    int square=((FeedImage*)[icons firstObject]).imageWidth.intValue *
-        ((FeedImage*)[icons firstObject]).imageHeight.intValue;
-    // I am looking for the smallest icon
-    for (int i=0; i<icons.count; i++)
-    {
-        if(square <=
-           ((FeedImage*)[icons objectAtIndex:i]).imageWidth.intValue *
-           ((FeedImage*)[icons objectAtIndex:i]).imageHeight.intValue)
-        {
-            iconID = i;
-            square = ((FeedImage*)[icons objectAtIndex:i]).imageWidth.intValue *
-                    ((FeedImage*)[icons objectAtIndex:i]).imageHeight.intValue;
-        }
-        
-    }
-    // if article doesn't have any itemImage
-    if(iconID == -1)
-    {
-        NSData* retData = [self.feedServerRelationship getServerIcon];
-        return retData;
-    }
-    NSData* retData = [FeedImage downloadItemImageWithInternetPath:
-        ((FeedImage*)[icons objectAtIndex:iconID]).imageUrl];
-    
-    return retData;
-}
 
-//
 -(NSString*) findImageInternetPath
 {
     NSArray *icons = self.feedImageRelationship.allObjects;
@@ -142,33 +110,5 @@
 }
 
 
--(NSData*) getItemImage
-{
-    NSArray *icons = self.feedImageRelationship.allObjects;
-    int iconID=-1;
-    int square=((FeedImage*)[icons firstObject]).imageWidth.intValue * ((FeedImage*)[icons firstObject]).imageHeight.intValue;
-    // I am looking for the smallest icon
-    for (int i=0; i<icons.count; i++)
-    {
-        if(square >=
-           ((FeedImage*)[icons objectAtIndex:i]).imageWidth.intValue *
-           ((FeedImage*)[icons objectAtIndex:i]).imageHeight.intValue)
-        {
-            iconID = i;
-            square = ((FeedImage*)[icons objectAtIndex:i]).imageWidth.intValue *
-            ((FeedImage*)[icons objectAtIndex:i]).imageHeight.intValue;
-        }
-        
-    }
-    // if article doesn't have any image
-    if(iconID == -1)
-    {
-        return [self getItemIcon];
-    }
-    NSData* retData = [FeedImage downloadItemImageWithInternetPath:
-                       ((FeedImage*)[icons objectAtIndex:iconID]).imageUrl];
-
-    return retData;
-}
 
 @end

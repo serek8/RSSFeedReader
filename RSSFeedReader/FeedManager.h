@@ -12,10 +12,10 @@
 
 
 @property (nonatomic, retain) NSString* serverURL;
-@property (nonatomic, retain) NSString* serverName;
+
 
 +(instancetype)sharedInstance;
-//-(void)refreshFeeds;
+
 
 
 

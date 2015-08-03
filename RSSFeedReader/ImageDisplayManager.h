@@ -10,6 +10,7 @@
 #import "FeedItem.h"
 #import <UIKit/UIKit.h>
 #import "ImageDisplayOperation.h"
+#import "NSString+MD5.h"
 
 @interface ImageDisplayManager : NSObject
 
@@ -17,5 +18,6 @@
 @property (nonatomic, retain) NSOperationQueue* operationQueue;
 +(instancetype)sharedInstance;
 -(void)queueDisplayImageOfFeedItem:(FeedItem*)item inImageView:(UIImageView*)image;
++(NSData*) downloadItemImageWithInternetPath:(NSString*)imageInternetPath;
 
 @end

@@ -9,13 +9,18 @@
 #import "ImageBrowserViewController.h"
 
 @interface ImageBrowserViewController ()
-
+@property (strong, nonatomic) IBOutlet UIScrollView *scrollView;
+@property (strong, nonatomic) IBOutlet UIImageView *imageInScroll;
+@property (strong, nonatomic) NSString* imageInternetPath;
+@property (strong, nonatomic) UIImage *image;
 @end
 
 @implementation ImageBrowserViewController
 
 - (void)dealloc {
     self.imageInternetPath = nil;
+    self.image = nil;
+    self.item = nil;
     [_scrollView release];
     [_imageInScroll release];
     [super dealloc];
@@ -32,7 +37,7 @@
     [super viewDidLoad];
     self.imageInternetPath = [self.item findImageInternetPath];
     [[[NSOperationQueue alloc] init] addOperationWithBlock:^{
-        self.image = [UIImage imageWithData:[self downloadItemMedia]];
+        self.image = [UIImage imageWithData:[ImageDisplayManager downloadItemImageWithInternetPath:self.imageInternetPath]];
         dispatch_async(dispatch_get_main_queue(), ^{
             self.imageInScroll.image = self.image;
             self.imageInScroll.center = self.scrollView.center;
@@ -84,31 +89,6 @@
 }
 
 
-
--(NSData*) downloadItemMedia
-{
-    
-    NSString* path = [NSHomeDirectory() stringByAppendingString:
-                      [NSString stringWithFormat:@"/Library/Caches/Images/%@",
-                       [self.imageInternetPath md5]]];
-    
-    //if file is not yet downloaded from the internet we fetch it and store in core data
-    if(![[NSFileManager defaultManager] fileExistsAtPath:path])
-    {
-        
-        
-        NSData* imgData =  [NSData dataWithContentsOfURL:
-                            [NSURL URLWithString:self.imageInternetPath]];
-        [imgData writeToFile:path
-                  atomically:YES];
-        
-    }
-    
-    // Now the image must be in core data so we fetch it
-    
-    NSData* retData = [NSData dataWithContentsOfFile:path];
-    return retData;
-}
 
 
 @end

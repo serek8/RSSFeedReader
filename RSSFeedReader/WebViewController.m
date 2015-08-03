@@ -9,14 +9,15 @@
 #import "WebViewController.h"
 
 @interface WebViewController () <UIWebViewDelegate>
-
-
+@property (strong, nonatomic) IBOutlet UIWebView *webView;
+@property (strong, nonatomic) IBOutlet UIActivityIndicatorView *indicator;
 @end
 
 @implementation WebViewController
 
 - (void)dealloc
 {
+    self.url = nil;
     [_webView release];
     [_indicator release];
     [super dealloc];
