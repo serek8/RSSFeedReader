@@ -9,9 +9,6 @@
 #import "ImageBrowserViewController.h"
 
 @interface ImageBrowserViewController () <UIScrollViewDelegate>
-{
-
-}
 
 @property (retain, nonatomic) IBOutlet UIScrollView *scrollView;
 @property (retain, nonatomic)  UIImageView *imageView;

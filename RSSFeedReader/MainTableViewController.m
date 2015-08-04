@@ -7,7 +7,6 @@
 //
 
 #import "MainTableViewController.h"
-#import "popoverViewController.h"
 
 @interface MainTableViewController () <NSFetchedResultsControllerDelegate, UISearchBarDelegate>
 {
@@ -16,8 +15,6 @@
 
 @property (nonatomic, retain) NSManagedObjectContext* mainContext;
 @property (nonatomic, retain) NSFetchedResultsController* resultsController;
-
-
 @property (retain, nonatomic) NSIndexPath *cellIndexForPopover;
 
 
@@ -31,6 +28,7 @@
     [[NSNotificationCenter defaultCenter] removeObserver:self];
     self.mainContext = nil;
     self.resultsController = nil;
+    self.cellIndexForPopover = nil;
     [_containerView release];
     [super dealloc];
 }
@@ -39,11 +37,8 @@
 -(void)viewDidLoad
 {
     [super viewDidLoad];
-    
-
     self.mainContext = ((AppDelegate*)[UIApplication sharedApplication].delegate).managedObjectContext;
 
-    
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(settingsChanged:)
                                                  name:SettingsUpdatedNotification
@@ -77,9 +72,7 @@
 }
 - (void) settingsChanged:(NSNotification *) notification
 {
-
     NSError* error;
-    
     [self.resultsController.fetchRequest setPredicate:
      [NSPredicate predicateWithFormat:
       @"feedServerRelationship.serverUrl contains[cd] %@", [SettingsManager sharedInstance].serverURL]];

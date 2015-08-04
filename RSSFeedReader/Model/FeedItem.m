@@ -47,7 +47,17 @@
     NSArray *results = [context executeFetchRequest:request error:&error];
     for(int i=0; i<results.count; i++)
     {
-        [context deleteObject: ((FeedItem*)[results objectAtIndex:i])];
+        for(FeedImage *feedImage in ((FeedItem*)[results objectAtIndex:i]).feedImageRelationship)
+        {
+            if([[NSFileManager defaultManager] fileExistsAtPath:feedImage.imageUrl])
+            {
+                NSError *error;
+                [[NSFileManager defaultManager] removeItemAtPath:feedImage.imageUrl error:&error];
+                
+            }
+
+        }
+                [context deleteObject: ((FeedItem*)[results objectAtIndex:i])];
     }
 
 }

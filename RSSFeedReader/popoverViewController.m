@@ -10,9 +10,9 @@
 #import "MainTableViewController.h"
 
 @interface popoverViewController ()
+
 @property (retain, nonatomic) IBOutlet UIButton *goBackButton;
 @property (retain, nonatomic) IBOutlet UIButton *openInBrowserButton;
-
 @property (retain, nonatomic) IBOutlet UITextView *descriptionPopover;
 
 @end
@@ -34,9 +34,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.goBackButton.titleLabel.text = NSLocalizedString(@"Go back", nil);
-    self.openInBrowserButton.titleLabel.text = NSLocalizedString(@"Open in browser", nil);
-    // Do any additional setup after loading the view.
+    [self.goBackButton setTitle:NSLocalizedString(@"GoBack", nil) forState:UIControlStateNormal];
+    [self.openInBrowserButton setTitle:NSLocalizedString(@"OpenInBrowser", nil) forState:UIControlStateNormal];
 }
 
 -(void)viewDidAppear:(BOOL)animated

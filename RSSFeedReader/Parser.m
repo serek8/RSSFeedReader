@@ -18,13 +18,7 @@ typedef enum : NSInteger {
 
 @interface Parser()
 {
-
-    
-    //  + - flag summary - +
-    // 0 - parsing works
-    // 1 - duplicate found
-    int _flag;
-    
+    ItemAvaliability _flag;
 }
 
 //@property (nonatomic, strong) NSString *url;
@@ -66,7 +60,7 @@ typedef enum : NSInteger {
         inst.attributeStack = [[[Stack alloc] init] autorelease];
         inst.parser = [[[NSXMLParser alloc] initWithContentsOfURL: [NSURL URLWithString:[SettingsManager sharedInstance].serverURL]] autorelease];
         //inst.parser.delegate = inst;
-        inst->_flag = false;
+        inst->_flag = NewInstance;
     
     
     }
@@ -243,7 +237,7 @@ typedef enum : NSInteger {
     {
         [self.tagStack pop];
         [self.attributeStack pop];
-        if(_flag) { _flag=0; return;}
+        if(_flag) { _flag=NewInstance; return;}
         NSError *error;
         [self.context save:&error];
     }

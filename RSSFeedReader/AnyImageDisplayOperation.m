@@ -12,10 +12,10 @@
 
 @interface AnyImageDisplayOperation()
 
-
 @property (nonatomic, retain) UIImageView *imageView;
 @property (nonatomic, retain) NSString *internetPath;
 @property (nonatomic, copy) compBlock block;
+
 @end
 
 

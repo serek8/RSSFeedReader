@@ -8,5 +8,5 @@
 
 "ConnectionLost" = "Utracono połączenie";
 "Feeds" = "Wiadomości";
-"Go back" = "Wróć";
-"Open in browser" = "Otwórz w przegladarce";
+"GoBack" = "Wróć";
+"OpenInBrowser" = "Otwórz w przegladarce";

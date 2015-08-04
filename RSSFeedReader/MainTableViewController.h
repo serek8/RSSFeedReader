@@ -16,10 +16,11 @@
 #import "ParserManager.h"
 #import "ImageDisplayManager.h"
 #import "Reachability.h"
+#import "popoverViewController.h"
 
 @interface MainTableViewController : UITableViewController
-@property (retain, nonatomic) IBOutlet UIView *containerView;
 
+@property (retain, nonatomic) IBOutlet UIView *containerView;
 -(void)setSrcollableForTableView: (BOOL)scrollableBool;
 
 @end
