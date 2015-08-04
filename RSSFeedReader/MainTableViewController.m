@@ -120,7 +120,7 @@
 -(void)hidePopover
 {
     [self.containerView removeFromSuperview];
-    self.tableView.scrollEnabled = NO;
+    self.tableView.scrollEnabled = YES;
     
 }
 
@@ -188,7 +188,7 @@
     FeedUITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"feedTableCell"
                                                                 forIndexPath:indexPath];
 
-       cell.titleLabel.text = feedItem.itemTitle;
+    cell.titleLabel.text = feedItem.itemTitle;
     cell.summaryLabel.text = feedItem.itemDetail;
     
     [[ImageDisplayManager sharedInstance] queueDisplayImageOfFeedItem:feedItem

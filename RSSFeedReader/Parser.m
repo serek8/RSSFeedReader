@@ -175,7 +175,10 @@ typedef enum : NSInteger {
         
         if([self.tagStack.showTop isEqualToString:@"item"])
         {
-            self.item.itemLink = self.element;
+            NSString *str;
+            str = [self.element stringByReplacingOccurrencesOfString:@"\n" withString:@""];
+            str = [str stringByReplacingOccurrencesOfString:@" " withString:@""];
+            self.item.itemLink = str;
         }
     }
     
@@ -208,9 +211,10 @@ typedef enum : NSInteger {
         if([self.tagStack.showTop isEqualToString:@"item"])
         {
             NSDateFormatter *dateFormat = [[[NSDateFormatter alloc] init] autorelease];
-            [dateFormat setDateFormat:@"EE, d LLLL yyyy HH:mm:ss Z"];
+            NSLocale *enLocale = [[[NSLocale alloc] initWithLocaleIdentifier:@"en-GB"] autorelease];
+            dateFormat.locale = enLocale;
+            [dateFormat setDateFormat:@"EEE, dd MMM yyyy HH:mm:ss zzz"];
             NSDate *date = [dateFormat dateFromString:self.element];
-            //[dateFormat release];
             self.item.itemPublicationDate = date;
         }
     }
@@ -228,8 +232,11 @@ typedef enum : NSInteger {
             FeedImage *image = [FeedImage insertInManagedObjectContext:self.context];
             image.imageWidth = @([[[self.attributeStack showTop ] objectForKey:@"width"] integerValue]);
             image.imageHeight = @([[[self.attributeStack showTop] objectForKey:@"height"] integerValue]);
-            image.imageUrl = [[self.attributeStack showTop ] objectForKey:@"url"];
-            
+            NSString *str;
+            str = [[[self.attributeStack showTop ] objectForKey:@"url"] stringByReplacingOccurrencesOfString:@"\n" withString:@""];
+            str = [str stringByReplacingOccurrencesOfString:@" " withString:@""];
+            //image.imageUrl = [[self.attributeStack showTop ] objectForKey:@"url"];
+            image.imageUrl = str;
             [self.item addFeedImageRelationshipObject:image];
             
             [self.attributeStack pop];
