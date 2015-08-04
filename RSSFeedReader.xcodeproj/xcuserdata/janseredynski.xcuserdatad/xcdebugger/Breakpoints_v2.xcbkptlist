@@ -185,7 +185,7 @@
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "RSSFeedReader/popoverViewController.m"
+            filePath = "RSSFeedReader/PopoverViewController.m"
             timestampString = "460386140.320643"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"

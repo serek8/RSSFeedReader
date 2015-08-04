@@ -51,7 +51,7 @@
 		3B68A1BD1B70BD9E00906448 /* AnyImageDisplayOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B68A1BC1B70BD9E00906448 /* AnyImageDisplayOperation.m */; };
 		3BEBDDFD1B6F690D00050B1E /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 3BEBDDFF1B6F690D00050B1E /* Localizable.strings */; };
 		3BEBDE021B6F69EA00050B1E /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 3BEBDE041B6F69EA00050B1E /* Localizable.strings */; };
-		3BEBDE071B6FB4AA00050B1E /* popoverViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BEBDE061B6FB4AA00050B1E /* popoverViewController.m */; };
+		3BEBDE071B6FB4AA00050B1E /* PopoverViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BEBDE061B6FB4AA00050B1E /* PopoverViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -121,8 +121,8 @@
 		3BEBDDFA1B6F65DC00050B1E /* pl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = pl; path = pl.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 		3BEBDDFE1B6F690D00050B1E /* pl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = pl; path = pl.lproj/Localizable.strings; sourceTree = "<group>"; };
 		3BEBDE031B6F69EA00050B1E /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/Localizable.strings; sourceTree = "<group>"; };
-		3BEBDE051B6FB4AA00050B1E /* popoverViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = popoverViewController.h; sourceTree = "<group>"; };
-		3BEBDE061B6FB4AA00050B1E /* popoverViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = popoverViewController.m; sourceTree = "<group>"; };
+		3BEBDE051B6FB4AA00050B1E /* PopoverViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PopoverViewController.h; sourceTree = "<group>"; };
+		3BEBDE061B6FB4AA00050B1E /* PopoverViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PopoverViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -262,8 +262,8 @@
 				3B2B205E1B68D11B002A9CD5 /* SettingsManager.m */,
 				3B67600D1B6B59AD00A3D57A /* ImageDisplayOperation.h */,
 				3B67600E1B6B59AD00A3D57A /* ImageDisplayOperation.m */,
-				3BEBDE051B6FB4AA00050B1E /* popoverViewController.h */,
-				3BEBDE061B6FB4AA00050B1E /* popoverViewController.m */,
+				3BEBDE051B6FB4AA00050B1E /* PopoverViewController.h */,
+				3BEBDE061B6FB4AA00050B1E /* PopoverViewController.m */,
 				3B68A1BB1B70BD9E00906448 /* AnyImageDisplayOperation.h */,
 				3B68A1BC1B70BD9E00906448 /* AnyImageDisplayOperation.m */,
 			);
@@ -416,7 +416,7 @@
 				3B2B20601B68D11B002A9CD5 /* SettingsManager.m in Sources */,
 				3B2B200A1B68C59C002A9CD5 /* RSSFeedReader.xcdatamodeld in Sources */,
 				3B2B20411B68CA66002A9CD5 /* FeedServer.m in Sources */,
-				3BEBDE071B6FB4AA00050B1E /* popoverViewController.m in Sources */,
+				3BEBDE071B6FB4AA00050B1E /* PopoverViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

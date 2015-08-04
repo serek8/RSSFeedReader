@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface popoverViewController : UIViewController
+@interface PopoverViewController : UIViewController
 
 @property (nonatomic, retain) NSString *itemDetail;
 @property (nonatomic, retain) NSString *itemLink;

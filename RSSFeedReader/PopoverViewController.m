@@ -6,10 +6,10 @@
 //  Copyright (c) 2015 Jan Seredynski. All rights reserved.
 //
 
-#import "popoverViewController.h"
+#import "PopoverViewController.h"
 #import "MainTableViewController.h"
 
-@interface popoverViewController ()
+@interface PopoverViewController ()
 
 @property (retain, nonatomic) IBOutlet UIButton *goBackButton;
 @property (retain, nonatomic) IBOutlet UIButton *openInBrowserButton;
@@ -19,7 +19,7 @@
 
 
 
-@implementation popoverViewController
+@implementation PopoverViewController
 
 
 -(void)dealloc

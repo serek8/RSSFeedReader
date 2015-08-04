@@ -16,7 +16,7 @@
 #import "ParserManager.h"
 #import "ImageDisplayManager.h"
 #import "Reachability.h"
-#import "popoverViewController.h"
+#import "PopoverViewController.h"
 
 @interface MainTableViewController : UITableViewController
 

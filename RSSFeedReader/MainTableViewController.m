@@ -63,9 +63,7 @@
 {
     if([[ParserManager sharedInstance] currentNetworkStatus] == NotReachable)
     {
-        
         self.title = NSLocalizedString(@"ConnectionLost", nil);
-        //self.title = @"Connection Lost";
     }
     else
     {
@@ -241,10 +239,10 @@ shouldChangeTextInRange:(NSRange)range
     [self.searchBar resignFirstResponder];
     
     for(UIViewController* ctrl in self.childViewControllers)
-        if ([ctrl isKindOfClass:[popoverViewController class]])
+        if ([ctrl isKindOfClass:[PopoverViewController class]])
         {
-            ((popoverViewController*)ctrl).itemLink = ((FeedItem*)[self.resultsController objectAtIndexPath:indexPath]).itemLink;
-            ((popoverViewController*)ctrl).itemDetail = ((FeedItem*)[self.resultsController objectAtIndexPath:indexPath]).itemDetail;
+            ((PopoverViewController*)ctrl).itemLink = ((FeedItem*)[self.resultsController objectAtIndexPath:indexPath]).itemLink;
+            ((PopoverViewController*)ctrl).itemDetail = ((FeedItem*)[self.resultsController objectAtIndexPath:indexPath]).itemDetail;
             break;
         }
 }

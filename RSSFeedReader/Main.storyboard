@@ -217,7 +217,7 @@
         <!--Popover View Controller-->
         <scene sceneID="stw-tG-Hv4">
             <objects>
-                <viewController automaticallyAdjustsScrollViewInsets="NO" id="GsE-V8-skD" customClass="popoverViewController" sceneMemberID="viewController">
+                <viewController automaticallyAdjustsScrollViewInsets="NO" id="GsE-V8-skD" customClass="PopoverViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="F2c-5Q-5SA"/>
                         <viewControllerLayoutGuide type="bottom" id="hKX-NW-1K3"/>
