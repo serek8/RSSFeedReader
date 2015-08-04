@@ -16,7 +16,8 @@
 @property (nonatomic, retain) NSManagedObjectContext* mainContext;
 @property (nonatomic, retain) NSFetchedResultsController* resultsController;
 @property (retain, nonatomic) NSIndexPath *cellIndexForPopover;
-
+@property (retain, nonatomic) IBOutlet UIView *containerView;
+@property (retain, nonatomic) IBOutlet UISearchBar *searchBar;
 
 @end
 
@@ -30,6 +31,7 @@
     self.resultsController = nil;
     self.cellIndexForPopover = nil;
     [_containerView release];
+    [_searchBar release];
     [super dealloc];
 }
 
@@ -117,9 +119,11 @@
     return _resultsController;
 }
 
--(void)setSrcollableForTableView: (BOOL)scrollableBool
+-(void)hidePopover
 {
-    self.tableView.scrollEnabled = scrollableBool;
+    [self.containerView removeFromSuperview];
+    self.tableView.scrollEnabled = NO;
+    
 }
 
 #pragma mark - NSFetchedResultsControllerDelegate
@@ -233,13 +237,12 @@ shouldChangeTextInRange:(NSRange)range
                                           self.tableView.contentOffset.y,
                                           self.view.superview.bounds.size.width,
                                           self.view.superview.bounds.size.height);
-    //self.containerView.frame.origin.y = self.tableView.contentOffset.y;
     self.tableView.scrollEnabled = NO;
+    [self.searchBar resignFirstResponder];
     
     for(UIViewController* ctrl in self.childViewControllers)
         if ([ctrl isKindOfClass:[popoverViewController class]])
         {
-            
             ((popoverViewController*)ctrl).itemLink = ((FeedItem*)[self.resultsController objectAtIndexPath:indexPath]).itemLink;
             ((popoverViewController*)ctrl).itemDetail = ((FeedItem*)[self.resultsController objectAtIndexPath:indexPath]).itemDetail;
             break;
@@ -266,8 +269,6 @@ shouldChangeTextInRange:(NSRange)range
 // In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
 
     if([segue.identifier isEqualToString:@"webBrowseerSegue"])
     {

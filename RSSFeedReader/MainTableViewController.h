@@ -20,7 +20,6 @@
 
 @interface MainTableViewController : UITableViewController
 
-@property (retain, nonatomic) IBOutlet UIView *containerView;
--(void)setSrcollableForTableView: (BOOL)scrollableBool;
+-(void)hidePopover;
 
 @end

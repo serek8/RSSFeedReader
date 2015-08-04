@@ -45,14 +45,9 @@
     
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
 
 - (IBAction)goBackToFeedsAction:(id)sender {
-    [((MainTableViewController*)self.parentViewController) setSrcollableForTableView:YES];
-    [((MainTableViewController*)self.parentViewController).containerView removeFromSuperview];
+    [((MainTableViewController*)self.parentViewController) hidePopover];
 }
 
 #pragma mark - Navigation
@@ -62,9 +57,8 @@
 
     if([segue.identifier isEqualToString:@"webBrowseerSegue"])
     {
-        [((MainTableViewController*)self.parentViewController) setSrcollableForTableView:YES];
         ((WebViewController*)[segue destinationViewController]).url = self.itemLink;
-        [((MainTableViewController*)self.parentViewController).containerView removeFromSuperview];
+        [((MainTableViewController*)self.parentViewController) hidePopover];
     }
     
 }

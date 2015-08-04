@@ -41,6 +41,8 @@ typedef enum : NSInteger {
 {
     self.url=nil;
     self.item=nil;
+    self.mainContext = nil;
+    self.context = nil;
     self.tagStack = nil;
     self.attributeStack = nil;
     self.element = nil;

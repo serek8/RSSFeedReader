@@ -24,6 +24,7 @@
 
 -(void)dealloc
 {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
     self.operationQueue = nil;
     [self.reachability stopNotifier];
     self.reachability=nil;
@@ -44,7 +45,7 @@
 -(ParserManager*)init
 {
     if(![super init]) return nil;
-    self.operationQueue = [[NSOperationQueue alloc] init];
+    self.operationQueue = [[[NSOperationQueue alloc] init] autorelease];
     
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(connectionStatusDidChange:)

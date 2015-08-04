@@ -104,6 +104,7 @@
                     <navigationItem key="navigationItem" title="News feed" id="RqH-9n-95z"/>
                     <connections>
                         <outlet property="containerView" destination="oI2-Ld-Kb0" id="AEf-Lf-p02"/>
+                        <outlet property="searchBar" destination="ZnK-0v-oJF" id="Wi8-fn-iWz"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Gqv-xs-UiB" userLabel="First Responder" sceneMemberID="firstResponder"/>
