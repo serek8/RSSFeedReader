@@ -84,6 +84,8 @@
 
 
 
+
+
 -(NSString*) findImageInternetPath
 {
     NSArray *icons = self.feedImageRelationship.allObjects;
@@ -108,6 +110,7 @@
     }
     return ((FeedImage*)[icons objectAtIndex:iconID]).imageUrl;
 }
+
 
 
 

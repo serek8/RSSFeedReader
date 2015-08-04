@@ -10,4 +10,5 @@
 +(void) deleteOldFeedItemsInContext: (NSManagedObjectContext*) context;
 -(NSString*) findIconInternetPath;
 -(NSString*) findImageInternetPath;
+
 @end

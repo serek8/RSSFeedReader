@@ -7,6 +7,7 @@
 //
 
 #import "MainTableViewController.h"
+#import "popoverViewController.h"
 
 @interface MainTableViewController () <NSFetchedResultsControllerDelegate, UISearchBarDelegate>
 {
@@ -14,8 +15,10 @@
 }
 
 @property (nonatomic, retain) NSManagedObjectContext* mainContext;
-@property (nonatomic,retain) NSFetchedResultsController* resultsController;
+@property (nonatomic, retain) NSFetchedResultsController* resultsController;
 
+
+@property (retain, nonatomic) NSIndexPath *cellIndexForPopover;
 
 
 @end
@@ -28,6 +31,7 @@
     [[NSNotificationCenter defaultCenter] removeObserver:self];
     self.mainContext = nil;
     self.resultsController = nil;
+    [_containerView release];
     [super dealloc];
 }
 
@@ -119,6 +123,12 @@
     
     return _resultsController;
 }
+
+-(void)setSrcollableForTableView: (BOOL)scrollableBool
+{
+    self.tableView.scrollEnabled = scrollableBool;
+}
+
 #pragma mark - NSFetchedResultsControllerDelegate
 
 
@@ -220,7 +230,28 @@ shouldChangeTextInRange:(NSRange)range
     return YES;
 }
 
-
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    self.cellIndexForPopover = indexPath;
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    [self.tableView addSubview:self.containerView];
+    self.containerView.frame = self.view.superview.bounds;
+    self.containerView.frame = CGRectMake(self.view.superview.bounds.origin.x,
+                                          self.tableView.contentOffset.y,
+                                          self.view.superview.bounds.size.width,
+                                          self.view.superview.bounds.size.height);
+    //self.containerView.frame.origin.y = self.tableView.contentOffset.y;
+    self.tableView.scrollEnabled = NO;
+    
+    for(UIViewController* ctrl in self.childViewControllers)
+        if ([ctrl isKindOfClass:[popoverViewController class]])
+        {
+            
+            ((popoverViewController*)ctrl).itemLink = ((FeedItem*)[self.resultsController objectAtIndexPath:indexPath]).itemLink;
+            ((popoverViewController*)ctrl).itemDetail = ((FeedItem*)[self.resultsController objectAtIndexPath:indexPath]).itemDetail;
+            break;
+        }
+}
 
 
 - (void)controllerWillChangeContent:(NSFetchedResultsController *)controller
@@ -247,6 +278,7 @@ shouldChangeTextInRange:(NSRange)range
 
     if([segue.identifier isEqualToString:@"webBrowseerSegue"])
     {
+        [self.containerView removeFromSuperview];
     ((WebViewController*)[segue destinationViewController]).url =
     ((FeedItem*)[self.resultsController objectAtIndexPath:self.tableView.indexPathForSelectedRow]).itemLink;
     }
@@ -260,7 +292,6 @@ shouldChangeTextInRange:(NSRange)range
         FeedItem* curItem = [self.resultsController objectAtIndexPath:sel];
         ImageBrowserViewController* im =[segue destinationViewController];
         im.item =   curItem;
-
     }
 }
 

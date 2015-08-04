@@ -5,7 +5,7 @@
 //  Created by Jan Seredynski on 26/07/15.
 //  Copyright (c) 2015 Jan Seredynski. All rights reserved.
 //
-
+#import "MainTableViewController.h"
 #import "WebViewController.h"
 
 @interface WebViewController () <UIWebViewDelegate>
@@ -50,6 +50,5 @@
 - (void)webViewDidFinishLoad:(UIWebView *)webView {
     [self.indicator stopAnimating];
 }
-
 
 @end

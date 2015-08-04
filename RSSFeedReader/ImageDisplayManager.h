@@ -13,6 +13,7 @@
 #import "NSString+MD5.h"
 
 typedef void(^completionBlock)(NSData*);
+typedef void(^compBlock)();
 
 @interface ImageDisplayManager : NSObject
 
@@ -21,6 +22,11 @@ typedef void(^completionBlock)(NSData*);
 @property (nonatomic, retain) NSOperationQueue* operationQueue;
 +(instancetype)sharedInstance;
 -(void)queueDisplayImageOfFeedItem:(FeedItem*)item inImageView:(UIImageView*)image;
+-(void)queueDisplayImageWithInternetPath:(NSString*)internetPath
+                       inImageView:(UIImageView*)imageView
+               withCompletionBlock: (compBlock)complBlock;
+
+
 +(void) downloadItemImageWithInternetPath:(NSString*)imageInternetPath
                      withCopmpletionBlock:(completionBlock)block;
 @end

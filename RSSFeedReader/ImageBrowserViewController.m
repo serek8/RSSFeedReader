@@ -8,10 +8,14 @@
 
 #import "ImageBrowserViewController.h"
 
-@interface ImageBrowserViewController ()
-@property (strong, nonatomic) IBOutlet UIScrollView *scrollView;
-@property (strong, nonatomic) IBOutlet UIImageView *imageInScroll;
-@property (strong, nonatomic) NSString* imageInternetPath;
+@interface ImageBrowserViewController () <UIScrollViewDelegate>
+{
+
+}
+
+@property (retain, nonatomic) IBOutlet UIScrollView *scrollView;
+@property (retain, nonatomic)  UIImageView *imageView;
+@property (retain, nonatomic) NSString* imageInternetPath;
 @end
 
 @implementation ImageBrowserViewController
@@ -19,69 +23,81 @@
 - (void)dealloc {
     self.imageInternetPath = nil;
     self.item = nil;
+    self.imageView = nil;
     [_scrollView release];
-    [_imageInScroll release];
     [super dealloc];
 }
 
 -(instancetype)init
 {
     self = [super init];
-    self.imageInScroll = [[[UIImageView alloc] init] autorelease];
     return self;
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.imageInternetPath = [self.item findImageInternetPath];
-    [[[NSOperationQueue alloc] init] addOperationWithBlock:^{
-        [ImageDisplayManager downloadItemImageWithInternetPath:self.imageInternetPath
-                                          withCopmpletionBlock:^(NSData *imageData)
-         {
-             self.imageInScroll.image = [UIImage imageWithData:imageData];
-             self.scrollView.contentSize = self.imageInScroll.image.size;
-             [self centerScrollViewContents ];
-         }];
-    }];
     
     self.scrollView.minimumZoomScale = 0.75;
-    self.scrollView.maximumZoomScale=3;
-    
-    self.scrollView.delegate = self;
+    self.scrollView.maximumZoomScale=10;
+    self.imageInternetPath = [self.item findImageInternetPath];
+
     
     
     // Do any additional setup after loading the view.
 }
 
-- (void)centerScrollViewContents {
-    CGSize boundsSize = self.scrollView.bounds.size;
-    CGRect contentsFrame = CGRectMake(0, 0, self.imageInScroll.image.size.width, self.imageInScroll.image.size.height);
-    
-    if (contentsFrame.size.width < boundsSize.width) {
-        contentsFrame.origin.x = (boundsSize.width - contentsFrame.size.width) / 2;
-    } else {
-        contentsFrame.origin.x = 0.0f;
-    }
-    
-    if (contentsFrame.size.height < boundsSize.height) {
-        contentsFrame.origin.y = (boundsSize.height - contentsFrame.size.height) / 2;
-    } else {
-        contentsFrame.origin.y = 0.0f;
-    }
-    
-    self.imageInScroll.frame = contentsFrame;
+-(void)viewWillAppear:(BOOL)animated
+{
+    self.imageView = [[[UIImageView alloc] init] autorelease];
+    [[ImageDisplayManager sharedInstance]
+        queueDisplayImageWithInternetPath:self.imageInternetPath
+     inImageView:self.imageView
+     withCompletionBlock:^{
+         self.scrollView.contentSize = self.imageView.image.size;
+         self.scrollView.clipsToBounds = YES;
+         self.scrollView.delegate= self;
+         [self.scrollView addSubview:self.imageView];
+         [self.imageView sizeToFit ];
+         [self scrollViewDidZoom:self.scrollView];
+     }
+     ];
 }
 
 - (void)scrollViewDidZoom:(UIScrollView *)scrollView
 {
-    [self centerScrollViewContents];
     
+    // center the image as it becomes smaller than the size of the screen
+    CGSize boundsSize = scrollView.bounds.size;
+    CGRect frameToCenter = self.imageView.frame;
+    
+    
+    // center horizontally
+    if (frameToCenter.size.width < boundsSize.width)
+    {
+        frameToCenter.origin.x = (boundsSize.width - frameToCenter.size.width) /2;
+    } else {
+        frameToCenter.origin.x = 0;
+    }
+    
+    // center vertically
+    if (frameToCenter.size.height < boundsSize.height)
+    {
+        frameToCenter.origin.y = (boundsSize.height - frameToCenter.size.height) / 2;
+    } else {
+        frameToCenter.origin.y = 0;
+    }
+    
+    self.imageView.frame = frameToCenter;
+    
+
 }
+
+
 
 
 -(UIView*)viewForZoomingInScrollView:(UIScrollView *)scrollView
 {
-    return self.imageInScroll;
+    return self.imageView;
     
 }
 

@@ -7,7 +7,7 @@
 //
 
 #import "ImageDisplayManager.h"
-
+#import "AnyImageDisplayOperation.h"
 
 @implementation ImageDisplayManager
 
@@ -40,6 +40,17 @@
     ImageDisplayOperation *loadImageoperation = [[[ImageDisplayOperation alloc]
                                                  initWithIconOfFeedItem:item
                                                  forImageView:imageView] autorelease];
+    [self.operationQueue addOperation: loadImageoperation];
+}
+
+-(void)queueDisplayImageWithInternetPath:(NSString*)internetPath
+                       inImageView:(UIImageView*)imageView
+               withCompletionBlock: (compBlock)complBlock
+{
+    AnyImageDisplayOperation *loadImageoperation = [[[AnyImageDisplayOperation alloc]
+                                                  initWithInternetPath:internetPath
+                                                     forImageView:imageView
+                                                     withCopletionBlock:complBlock ] autorelease];
     [self.operationQueue addOperation: loadImageoperation];
 }
 
