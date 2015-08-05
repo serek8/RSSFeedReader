@@ -57,7 +57,8 @@
 }
 
 
-+(void) downloadItemImageWithInternetPath:(NSString*)imageInternetPath withCopmpletionBlock:(completionBlock)block
++(void) downloadItemImageWithInternetPath:(NSString*)imageInternetPath
+                     withCopmpletionBlock:(completionBlock)block
 {
     NSString* path = [NSHomeDirectory() stringByAppendingString:
                       [NSString stringWithFormat:@"/Library/Caches/Images/%@",

@@ -203,7 +203,7 @@ shouldChangeTextInRange:(NSRange)range
  replacementText:(NSString *)text
 {
     NSPredicate *predicate = nil;
-    if ([searchBar.text length])
+    if ([searchBar.text length] || ([searchBar.text length]==0 && [text isEqual:@""]))
     {
         
         // full text, in my implementation.  Other scope button titles are "Author", "Title"
@@ -224,6 +224,20 @@ shouldChangeTextInRange:(NSRange)range
     }
     return YES;
 }
+
+- (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText
+{
+    if([searchText isEqualToString:@""] || searchText==nil) {
+        NSPredicate *predicate = nil;
+        predicate = [NSPredicate predicateWithFormat:@"feedServerRelationship.serverUrl contains[cd] %@", [SettingsManager sharedInstance].serverURL];
+        [self.resultsController.fetchRequest setPredicate:predicate];
+        NSError* error;
+        [self.resultsController performFetch:&error];
+        [self.tableView reloadData];
+    }
+}
+
+
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {

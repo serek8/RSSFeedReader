@@ -191,9 +191,9 @@ typedef enum : NSInteger {
             // if duplicate exists
             if([FeedItem isSetItemWithGUID:self.element inContext:self.context] == YES)
             {
-                _flag=1;
+                _flag=DuplicateInstance;
                 self.item = nil;
-                //[self.context rollback ];
+                [self.context rollback ];
             }
             else
             {
