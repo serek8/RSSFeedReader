@@ -203,7 +203,7 @@ shouldChangeTextInRange:(NSRange)range
  replacementText:(NSString *)text
 {
     NSPredicate *predicate = nil;
-    if ([searchBar.text length] || ([searchBar.text length]==0 && [text isEqual:@""]))
+    if ([searchBar.text length])
     {
         
         // full text, in my implementation.  Other scope button titles are "Author", "Title"
@@ -241,6 +241,7 @@ shouldChangeTextInRange:(NSRange)range
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    // remember which item I pass to popover
     self.cellIndexForPopover = indexPath;
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     [self.tableView addSubview:self.containerView];
