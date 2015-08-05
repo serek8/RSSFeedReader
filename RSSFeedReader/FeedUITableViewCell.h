@@ -13,7 +13,7 @@
 
 @property (retain, nonatomic) IBOutlet UILabel *titleLabel;
 
-@property (retain, nonatomic) IBOutlet UIImageView *imageView2;
+@property (retain, nonatomic) IBOutlet UIImageView *iconImageView;
 
 @property (retain, nonatomic) IBOutlet UIButton *buttonWithImage;
 @property (retain, nonatomic) IBOutlet UILabel *summaryLabel;

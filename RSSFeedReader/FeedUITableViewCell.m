@@ -23,7 +23,7 @@
 - (void)dealloc {
     [_buttonWithImage release];
     [_titleLabel release];
-    [_imageView2 release];
+    [_iconImageView release];
     [_summaryLabel release];
     [super dealloc];
 }

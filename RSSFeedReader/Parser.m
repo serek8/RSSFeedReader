@@ -235,7 +235,6 @@ typedef enum : NSInteger {
             NSString *str;
             str = [[[self.attributeStack showTop ] objectForKey:@"url"] stringByReplacingOccurrencesOfString:@"\n" withString:@""];
             str = [str stringByReplacingOccurrencesOfString:@" " withString:@""];
-            //image.imageUrl = [[self.attributeStack showTop ] objectForKey:@"url"];
             image.imageUrl = str;
             [self.item addFeedImageRelationshipObject:image];
             

@@ -192,7 +192,7 @@
     cell.summaryLabel.text = feedItem.itemDetail;
     
     [[ImageDisplayManager sharedInstance] queueDisplayImageOfFeedItem:feedItem
-                                                     inImageView:cell.imageView2];
+                                                     inImageView:cell.iconImageView];
 
     
     return cell;
