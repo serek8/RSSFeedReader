@@ -43,7 +43,6 @@
 		3B2B20601B68D11B002A9CD5 /* SettingsManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B2B205E1B68D11B002A9CD5 /* SettingsManager.m */; };
 		3B2B20621B68D133002A9CD5 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 3B2B20611B68D133002A9CD5 /* Settings.bundle */; };
 		3B2B20681B68DA61002A9CD5 /* _FeedImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B2B20671B68DA61002A9CD5 /* _FeedImage.m */; };
-		3B2B206E1B68DFC5002A9CD5 /* FeedManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B2B206D1B68DFC5002A9CD5 /* FeedManager.m */; };
 		3B2B20711B68E0AD002A9CD5 /* _FeedItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B2B20701B68E0AD002A9CD5 /* _FeedItem.m */; };
 		3B67600C1B6B58ED00A3D57A /* ImageDisplayManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B67600B1B6B58ED00A3D57A /* ImageDisplayManager.m */; };
 		3B67600F1B6B59AD00A3D57A /* ImageDisplayOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B67600E1B6B59AD00A3D57A /* ImageDisplayOperation.m */; };
@@ -106,8 +105,6 @@
 		3B2B20611B68D133002A9CD5 /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
 		3B2B20661B68DA61002A9CD5 /* _FeedImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = _FeedImage.h; sourceTree = "<group>"; };
 		3B2B20671B68DA61002A9CD5 /* _FeedImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = _FeedImage.m; sourceTree = "<group>"; };
-		3B2B206C1B68DFC5002A9CD5 /* FeedManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FeedManager.h; sourceTree = "<group>"; };
-		3B2B206D1B68DFC5002A9CD5 /* FeedManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FeedManager.m; sourceTree = "<group>"; };
 		3B2B206F1B68E0AD002A9CD5 /* _FeedItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = _FeedItem.h; sourceTree = "<group>"; };
 		3B2B20701B68E0AD002A9CD5 /* _FeedItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = _FeedItem.m; sourceTree = "<group>"; };
 		3B67600A1B6B58ED00A3D57A /* ImageDisplayManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageDisplayManager.h; sourceTree = "<group>"; };
@@ -143,6 +140,21 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		3B0EC8CE1B72249200323DC6 /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				3B2B20481B68D0F6002A9CD5 /* MainTableViewController.h */,
+				3B2B20491B68D0F6002A9CD5 /* MainTableViewController.m */,
+				3B2B204C1B68D0F6002A9CD5 /* ImageBrowserViewController.h */,
+				3B2B204D1B68D0F6002A9CD5 /* ImageBrowserViewController.m */,
+				3B2B204A1B68D0F6002A9CD5 /* WebViewController.h */,
+				3B2B204B1B68D0F6002A9CD5 /* WebViewController.m */,
+				3BEBDE051B6FB4AA00050B1E /* PopoverViewController.h */,
+				3BEBDE061B6FB4AA00050B1E /* PopoverViewController.m */,
+			);
+			name = ViewControllers;
+			sourceTree = "<group>";
+		};
 		3B2B1FF51B68C59C002A9CD5 = {
 			isa = PBXGroup;
 			children = (
@@ -242,30 +254,21 @@
 		3B2B20451B68D0D9002A9CD5 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				3B2B206C1B68DFC5002A9CD5 /* FeedManager.h */,
-				3B2B206D1B68DFC5002A9CD5 /* FeedManager.m */,
+				3B0EC8CE1B72249200323DC6 /* ViewControllers */,
 				3B2B20461B68D0F6002A9CD5 /* FeedUITableViewCell.h */,
 				3B2B20471B68D0F6002A9CD5 /* FeedUITableViewCell.m */,
-				3B2B20481B68D0F6002A9CD5 /* MainTableViewController.h */,
-				3B2B20491B68D0F6002A9CD5 /* MainTableViewController.m */,
-				3B2B204A1B68D0F6002A9CD5 /* WebViewController.h */,
-				3B2B204B1B68D0F6002A9CD5 /* WebViewController.m */,
-				3B2B204C1B68D0F6002A9CD5 /* ImageBrowserViewController.h */,
-				3B2B204D1B68D0F6002A9CD5 /* ImageBrowserViewController.m */,
 				3B2B204E1B68D0F6002A9CD5 /* ParserManager.h */,
 				3B2B204F1B68D0F6002A9CD5 /* ParserManager.m */,
 				3B2B20501B68D0F6002A9CD5 /* Parser.h */,
 				3B2B20511B68D0F6002A9CD5 /* Parser.m */,
 				3B67600A1B6B58ED00A3D57A /* ImageDisplayManager.h */,
 				3B67600B1B6B58ED00A3D57A /* ImageDisplayManager.m */,
-				3B2B205D1B68D11B002A9CD5 /* SettingsManager.h */,
-				3B2B205E1B68D11B002A9CD5 /* SettingsManager.m */,
 				3B67600D1B6B59AD00A3D57A /* ImageDisplayOperation.h */,
 				3B67600E1B6B59AD00A3D57A /* ImageDisplayOperation.m */,
-				3BEBDE051B6FB4AA00050B1E /* PopoverViewController.h */,
-				3BEBDE061B6FB4AA00050B1E /* PopoverViewController.m */,
 				3B68A1BB1B70BD9E00906448 /* AnyImageDisplayOperation.h */,
 				3B68A1BC1B70BD9E00906448 /* AnyImageDisplayOperation.m */,
+				3B2B205D1B68D11B002A9CD5 /* SettingsManager.h */,
+				3B2B205E1B68D11B002A9CD5 /* SettingsManager.m */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -401,7 +404,6 @@
 				3B2B20561B68D0F6002A9CD5 /* ParserManager.m in Sources */,
 				3B2B203E1B68CA66002A9CD5 /* _FeedServer.m in Sources */,
 				3B2B205A1B68D10A002A9CD5 /* NSString+MD5.m in Sources */,
-				3B2B206E1B68DFC5002A9CD5 /* FeedManager.m in Sources */,
 				3B2B20521B68D0F6002A9CD5 /* FeedUITableViewCell.m in Sources */,
 				3B2B20071B68C59C002A9CD5 /* AppDelegate.m in Sources */,
 				3B2B20041B68C59C002A9CD5 /* main.m in Sources */,
