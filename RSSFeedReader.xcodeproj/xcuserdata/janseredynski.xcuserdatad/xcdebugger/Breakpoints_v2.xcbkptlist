@@ -10,11 +10,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "RSSFeedReader/SettingsManager.m"
-            timestampString = "460226792.592087"
+            timestampString = "460546970.500454"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "57"
-            endingLineNumber = "57"
+            startingLineNumber = "45"
+            endingLineNumber = "45"
             landmarkName = "-serverURL"
             landmarkType = "5">
          </BreakpointContent>
@@ -26,11 +26,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "RSSFeedReader/MainTableViewController.m"
-            timestampString = "460389866.401992"
+            timestampString = "460546970.500454"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "64"
-            endingLineNumber = "64"
+            startingLineNumber = "65"
+            endingLineNumber = "65"
             landmarkName = "-connectionStatusDidChange:"
             landmarkType = "5">
          </BreakpointContent>
@@ -74,11 +74,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "RSSFeedReader/ImageDisplayManager.m"
-            timestampString = "460387599.294639"
+            timestampString = "460546970.500454"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "45"
-            endingLineNumber = "45"
+            startingLineNumber = "54"
+            endingLineNumber = "54"
             landmarkName = "-queueDisplayImageOfFeedItem:inImageView:"
             landmarkType = "5">
          </BreakpointContent>
@@ -170,12 +170,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "RSSFeedReader/ImageDisplayManager.h"
-            timestampString = "460374923.450461"
+            timestampString = "460546054.519611"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "25"
-            endingLineNumber = "25"
-            landmarkName = "-queueDisplayImageWithInternetPath:inImageView:withCompletionBlock:"
+            startingLineNumber = "26"
+            endingLineNumber = "26"
+            landmarkName = "-queueDisplayImageWithInternetPath:withCompletionBlock:"
             landmarkType = "4">
          </BreakpointContent>
       </BreakpointProxy>

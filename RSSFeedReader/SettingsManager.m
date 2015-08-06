@@ -38,18 +38,6 @@
     return sharedInstance;
 }
 
--(SettingsManager*)init
-{
-    self = [super init];
-    if(!self) return nil;
-    [[NSFileManager defaultManager] createDirectoryAtPath:
-     [NSHomeDirectory() stringByAppendingString: @"/Library/Caches/Images"]
-                              withIntermediateDirectories:YES
-                                               attributes:nil
-                                                    error:nil];
-
-    return self;
-}
 
 -(NSString*)serverURL
 {

@@ -13,7 +13,6 @@
 @interface AnyImageDisplayOperation : NSOperation
 
 -(instancetype)initWithInternetPath:(NSString*)internetPath
-              forImageView:(UIImageView*)imageView
-        withCopletionBlock:(compBlock)completionBlock;
+                 withCopletionBlock:(compBlock)completionBlock;
 
 @end

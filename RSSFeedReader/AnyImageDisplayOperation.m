@@ -15,6 +15,7 @@
 @property (nonatomic, retain) UIImageView *imageView;
 @property (nonatomic, retain) NSString *internetPath;
 @property (nonatomic, copy) compBlock block;
+@property(nonatomic, retain) UIImage *image;
 
 @end
 
@@ -23,6 +24,7 @@
 
 -(void)dealloc
 {
+    self.image = nil;
     self.imageView = nil;
     self.internetPath = nil;
     self.block = nil;
@@ -31,13 +33,11 @@
 
 
 -(instancetype)initWithInternetPath:(NSString*)internetPath
-              forImageView:(UIImageView*)imageView
-        withCopletionBlock:(compBlock)completionBlock
+                withCopletionBlock:(compBlock)completionBlock
 {
     self = [super init];
     if(!self) return nil;
     self.block = completionBlock;
-    self.imageView = imageView;
     self.internetPath = internetPath;
     return self;
     
@@ -49,8 +49,8 @@
     [ImageDisplayManager downloadItemImageWithInternetPath:self.internetPath
                                       withCopmpletionBlock:^(NSData *imageData)
     {
-        self.imageView.image = [UIImage imageWithData:imageData];
-        self.block();
+        self.image = [UIImage imageWithData:imageData];
+        self.block(self.image);
     }];
     
 }

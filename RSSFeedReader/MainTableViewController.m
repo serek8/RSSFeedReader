@@ -56,6 +56,7 @@
 
 -(void)viewWillAppear:(BOOL)animated
 {
+    [super viewWillAppear:(BOOL)animated];
     [self connectionStatusDidChange:nil];
 }
 
@@ -245,7 +246,7 @@ shouldChangeTextInRange:(NSRange)range
     self.cellIndexForPopover = indexPath;
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     [self.tableView addSubview:self.containerView];
-    self.containerView.frame = self.view.superview.bounds;
+    //self.containerView.frame = self.view.superview.bounds;
     self.containerView.frame = CGRectMake(self.view.superview.bounds.origin.x,
                                           self.tableView.contentOffset.y,
                                           self.view.superview.bounds.size.width,

@@ -8,11 +8,13 @@
 
 #import "ImageDisplayManager.h"
 #import "AnyImageDisplayOperation.h"
+#import <UIKit/UIKit.h>
 
 @implementation ImageDisplayManager
 
 -(void)dealloc
 {
+    self.downloadImageDictionary = nil;
     self.operationQueue = nil;
     [super dealloc];
 }
@@ -32,7 +34,14 @@
 {
     self = [super init];
     if(!self) return nil;
+    self.downloadImageDictionary = [[[NSMutableDictionary alloc] init] autorelease];
     self.operationQueue = [[[NSOperationQueue alloc]init] autorelease];
+    [[NSFileManager defaultManager] createDirectoryAtPath:
+     [NSHomeDirectory() stringByAppendingString: @"/Library/Caches/Images"]
+                              withIntermediateDirectories:YES
+                                               attributes:nil
+                                                    error:nil];
+
     return self;
 }
 
@@ -46,12 +55,10 @@
 }
 
 -(void)queueDisplayImageWithInternetPath:(NSString*)internetPath
-                       inImageView:(UIImageView*)imageView
                withCompletionBlock: (compBlock)complBlock
 {
     AnyImageDisplayOperation *loadImageoperation = [[[AnyImageDisplayOperation alloc]
                                                   initWithInternetPath:internetPath
-                                                     forImageView:imageView
                                                      withCopletionBlock:complBlock ] autorelease];
     [self.operationQueue addOperation: loadImageoperation];
 }
@@ -65,10 +72,11 @@
                        [imageInternetPath md5]]];
     
     //if file is not yet downloaded from the internet we fetch it and store in core data
-    if(![[NSFileManager defaultManager] fileExistsAtPath:path])
+    
+    if(![[NSFileManager defaultManager] fileExistsAtPath:path] &&
+       ![[ImageDisplayManager sharedInstance].downloadImageDictionary valueForKeyPath:path])
     {
-        
-        
+        [[ImageDisplayManager sharedInstance].downloadImageDictionary setValue:@1 forKey:path];
         NSData* imgData =  [NSData dataWithContentsOfURL:
                             [NSURL URLWithString:imageInternetPath]];
         [imgData writeToFile:path
