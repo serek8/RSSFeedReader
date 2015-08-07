@@ -18,7 +18,7 @@ typedef void(^compBlock)(UIImage* image);
 
 @interface ImageDisplayManager : NSObject
 
-@property (nonatomic, retain) NSMutableDictionary *downloadImageDictionary;
+
 
 @property (nonatomic, retain) NSOperationQueue* operationQueue;
 +(instancetype)sharedInstance;

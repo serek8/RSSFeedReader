@@ -17,5 +17,4 @@
 -(void)parse: (NSString*) url;
 +(instancetype)sharedInstance;
 
-
 @end

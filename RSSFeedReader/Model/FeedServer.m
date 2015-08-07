@@ -14,26 +14,14 @@
                    inContext: (NSManagedObjectContext*) context;
 {
     NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:super.entityName];
-    NSPredicate *searchFilter =  [NSPredicate predicateWithFormat:@"serverUrl == %@", url];
+    NSPredicate *searchFilter =  [NSPredicate predicateWithFormat:@"%K == %@",FeedServerAttributes.serverUrl, url];
     [request setPredicate:searchFilter];
     NSError *error = nil;
     NSArray *results = [context executeFetchRequest:request error:&error];
+    if(!results) NSLog(@"%@",error);
     return results.lastObject;
 }
 
-+(BOOL) isSetFeedServer :(FeedServer*)server
-           inContext: (NSManagedObjectContext*) context;
-{
-    NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:super.entityName];
-    NSPredicate *searchFilter =  [NSPredicate predicateWithFormat:@"itemName == %@", server.serverName];
-    [request setPredicate:searchFilter];
-    NSError *error = nil;
-    NSArray *results = [context executeFetchRequest:request error:&error];
-    if(results.count == 0) // if such server not exits in database
-        return NO;
-    else
-        return YES;
-}
 
 -(NSString*) findServerIconInternetPath
 {

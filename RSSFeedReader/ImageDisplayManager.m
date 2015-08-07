@@ -10,6 +10,12 @@
 #import "AnyImageDisplayOperation.h"
 #import <UIKit/UIKit.h>
 
+@interface ImageDisplayManager()
+@property (nonatomic, retain) NSMutableDictionary *downloadImageDictionary;
+
+@end
+
+
 @implementation ImageDisplayManager
 
 -(void)dealloc
@@ -36,11 +42,13 @@
     if(!self) return nil;
     self.downloadImageDictionary = [[[NSMutableDictionary alloc] init] autorelease];
     self.operationQueue = [[[NSOperationQueue alloc]init] autorelease];
-    [[NSFileManager defaultManager] createDirectoryAtPath:
+    NSError *error;
+    BOOL success = [[NSFileManager defaultManager] createDirectoryAtPath:
      [NSHomeDirectory() stringByAppendingString: @"/Library/Caches/Images"]
                               withIntermediateDirectories:YES
                                                attributes:nil
-                                                    error:nil];
+                                                    error:&error];
+    if(!success) NSLog(@"%@",[error localizedDescription]);
 
     return self;
 }
@@ -70,6 +78,8 @@
     NSString* path = [NSHomeDirectory() stringByAppendingString:
                       [NSString stringWithFormat:@"/Library/Caches/Images/%@",
                        [imageInternetPath md5]]];
+    
+    
     
     //if file is not yet downloaded from the internet we fetch it and store in core data
     

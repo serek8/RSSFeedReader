@@ -5,8 +5,6 @@
 @interface FeedServer : _FeedServer {}
 // Custom logic goes here.
 
-+(BOOL) isSetFeedServer :(FeedServer*)server
-           inContext: (NSManagedObjectContext*) context;
 
 
 +(FeedServer*) getFeedServerWithURL :(NSString*)url

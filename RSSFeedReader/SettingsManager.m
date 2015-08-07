@@ -30,11 +30,6 @@
         sharedInstance = [[self alloc] init];
     });
     
-    
-    
-    
-    
-    
     return sharedInstance;
 }
 

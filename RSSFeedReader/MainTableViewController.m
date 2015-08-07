@@ -52,6 +52,12 @@
                                                object:nil];
 
     [[ParserManager sharedInstance] parse:[SettingsManager sharedInstance].serverURL];
+    NSError *error;
+    if(![self.resultsController performFetch:&error])
+            {
+                NSLog(@"%@",error);
+            }
+
 }
 
 -(void)viewWillAppear:(BOOL)animated
@@ -73,12 +79,18 @@
 }
 - (void) settingsChanged:(NSNotification *) notification
 {
-    NSError* error;
     [self.resultsController.fetchRequest setPredicate:
      [NSPredicate predicateWithFormat:
-      @"feedServerRelationship.serverUrl contains[cd] %@", [SettingsManager sharedInstance].serverURL]];
+      @"%K.%K contains[cd] %@",FeedItemRelationships.feedServerRelationship,
+      FeedServerAttributes.serverUrl,
+      [SettingsManager sharedInstance].serverURL]];
+    
      [[ParserManager sharedInstance] parse:[SettingsManager sharedInstance].serverURL];
-    [self.resultsController performFetch:&error];
+    NSError *error;
+    if(![self.resultsController performFetch:&error])
+    {
+        NSLog(@"%@",error);
+    }
     [self.tableView reloadData];
 }
 
@@ -95,14 +107,13 @@
                                    inManagedObjectContext:self.mainContext];
     
     [fetchRequest setEntity:entity];
-    //[fetchRequest setFetchBatchSize:20];
     
     NSSortDescriptor *sort = [[[NSSortDescriptor alloc]
-                              initWithKey:@"itemPublicationDate"
+                              initWithKey:[NSString stringWithFormat:@"%@", FeedItemAttributes.itemPublicationDate ]
                               ascending:NO] autorelease];
     [fetchRequest setSortDescriptors:[NSArray arrayWithObject:sort]];
     
-    NSPredicate *predicate = [NSPredicate predicateWithFormat: @"feedServerRelationship.serverUrl contains[cd] %@", [SettingsManager sharedInstance].serverURL];
+    NSPredicate *predicate = [NSPredicate predicateWithFormat: @"%K.%K contains[cd] %@", FeedItemRelationships.feedServerRelationship,FeedServerAttributes.serverUrl,[SettingsManager sharedInstance].serverURL];
     [fetchRequest setPredicate:predicate];
 
     
@@ -208,19 +219,31 @@ shouldChangeTextInRange:(NSRange)range
     {
         
         // full text, in my implementation.  Other scope button titles are "Author", "Title"
-        predicate = [NSPredicate predicateWithFormat:@"feedServerRelationship.serverUrl contains[cd] %@ AND itemTitle CONTAINS[c] %@", [SettingsManager sharedInstance].serverURL, [NSString stringWithFormat:@"%@%@", searchBar.text, text]];
+        predicate = [NSPredicate predicateWithFormat:@"%K.%K contains[cd] %@ AND %K CONTAINS[c] %@",
+                     FeedItemRelationships.feedServerRelationship,
+                     FeedServerAttributes.serverUrl,
+                     [SettingsManager sharedInstance].serverURL, FeedItemAttributes.itemTitle,
+                     [NSString stringWithFormat:@"%@%@", searchBar.text, text]];
+        
         [self.resultsController.fetchRequest setPredicate:predicate];
         NSError* error;
-        [self.resultsController performFetch:&error];
+        
+        if(![self.resultsController performFetch:&error])
+            NSLog(@"%@",[error localizedDescription]);
         [self.tableView reloadData];
     }
     else
     {
         // full text, in my implementation.  Other scope button titles are "Author", "Title"
-        predicate = [NSPredicate predicateWithFormat:@"feedServerRelationship.serverUrl contains[cd] %@", [SettingsManager sharedInstance].serverURL];
+        predicate = [NSPredicate predicateWithFormat:@"%K.%K contains[cd] %@",
+                     FeedItemRelationships.feedServerRelationship,
+                     FeedServerAttributes.serverUrl,
+                     [SettingsManager sharedInstance].serverURL];
         [self.resultsController.fetchRequest setPredicate:predicate];
         NSError* error;
-        [self.resultsController performFetch:&error];
+        
+        if(![self.resultsController performFetch:&error])
+            NSLog(@"%@",[error localizedDescription]);
         [self.tableView reloadData];
     }
     return YES;
@@ -230,10 +253,15 @@ shouldChangeTextInRange:(NSRange)range
 {
     if([searchText isEqualToString:@""] || searchText==nil) {
         NSPredicate *predicate = nil;
-        predicate = [NSPredicate predicateWithFormat:@"feedServerRelationship.serverUrl contains[cd] %@", [SettingsManager sharedInstance].serverURL];
+        predicate = [NSPredicate predicateWithFormat:@"%K.%K contains[cd] %@",
+                     FeedItemRelationships.feedServerRelationship,
+                     FeedServerAttributes.serverUrl,
+                     [SettingsManager sharedInstance].serverURL];
         [self.resultsController.fetchRequest setPredicate:predicate];
         NSError* error;
-        [self.resultsController performFetch:&error];
+        
+        if(![self.resultsController performFetch:&error])
+            NSLog(@"%@",error);
         [self.tableView reloadData];
     }
 }

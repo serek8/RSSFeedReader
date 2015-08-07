@@ -17,10 +17,16 @@
                  inContext: (NSManagedObjectContext*) context;
 {
     NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:super.entityName];
-    NSPredicate *searchFilter =  [NSPredicate predicateWithFormat:@"itemGuid == %@", [guid md5]];
+    NSPredicate *searchFilter =  [NSPredicate predicateWithFormat:@"%K == %@",
+                                  FeedItemAttributes.itemGuid,
+                                  [guid md5]];
     [request setPredicate:searchFilter];
     NSError *error = nil;
     NSArray *results = [context executeFetchRequest:request error:&error];
+    if(!results)
+    {
+     NSLog(@"%@",error);
+    }
     // if such item exits in database
     if(results.count) return YES;
     return false;
@@ -40,11 +46,14 @@
     
     
     
-    NSPredicate *predicate = [NSPredicate predicateWithFormat: @"itemPublicationDate < %@", threeDaysAgoDate ];
+    NSPredicate *predicate = [NSPredicate predicateWithFormat: @"%K < %@",
+                              FeedItemAttributes.itemPublicationDate,
+                              threeDaysAgoDate ];
     NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:super.entityName];
     [request setPredicate:predicate];
     NSError *error = nil;
     NSArray *results = [context executeFetchRequest:request error:&error];
+    if(!results) NSLog(@"%@",error);
     for(int i=0; i<results.count; i++)
     {
         for(FeedImage *feedImage in ((FeedItem*)[results objectAtIndex:i]).feedImageRelationship)
@@ -52,7 +61,8 @@
             if([[NSFileManager defaultManager] fileExistsAtPath:feedImage.imageUrl])
             {
                 NSError *error;
-                [[NSFileManager defaultManager] removeItemAtPath:feedImage.imageUrl error:&error];
+                
+                if(![[NSFileManager defaultManager] removeItemAtPath:feedImage.imageUrl error:&error]) NSLog(@"%@",error);
                 
             }
 

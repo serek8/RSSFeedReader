@@ -19,18 +19,20 @@ typedef enum : NSInteger {
 @interface Parser()
 {
     ItemAvaliability _flag;
+    BOOL executing;
+    BOOL finished;
 }
 
 //@property (nonatomic, strong) NSString *url;
-@property (nonatomic, strong) FeedItem* item;
-@property (nonatomic, strong) FeedServer* server;
-@property (nonatomic, strong) NSManagedObjectContext* mainContext;
-@property (nonatomic, strong) NSManagedObjectContext* context;
-@property (nonatomic, strong) NSString* url;
-@property (nonatomic, strong) Stack* tagStack;
-@property (nonatomic, strong) Stack* attributeStack;
-@property (nonatomic, strong) NSMutableString* element;
-@property (nonatomic, strong) NSXMLParser* parser;
+@property (nonatomic, retain) FeedItem* item;
+@property (nonatomic, unsafe_unretained) FeedServer* server;
+@property (nonatomic, retain) NSManagedObjectContext* mainContext;
+@property (nonatomic, retain) NSManagedObjectContext* context;
+@property (nonatomic, retain) NSString* url;
+@property (nonatomic, retain) Stack* tagStack;
+@property (nonatomic, retain) Stack* attributeStack;
+@property (nonatomic, retain) NSMutableString* element;
+@property (nonatomic, retain) NSXMLParser* parser;
 
 @end
 
@@ -51,7 +53,7 @@ typedef enum : NSInteger {
    [super dealloc];
 }
 
-+(instancetype)createGeneratorWithUrl:(NSString*)url
++(instancetype)createParseOperationWithUrl:(NSString*)url
 {
     Parser* inst = [[[Parser alloc] init]autorelease];
     if (inst)
@@ -63,11 +65,52 @@ typedef enum : NSInteger {
         inst.parser = [[[NSXMLParser alloc] initWithContentsOfURL: [NSURL URLWithString:[SettingsManager sharedInstance].serverURL]] autorelease];
         //inst.parser.delegate = inst;
         inst->_flag = NewInstance;
-    
-    
+        inst->executing = NO;
+        inst->finished = NO;
     }
     return inst;
 }
+- (void)start {
+    // Always check for cancellation before launching the task.
+    if ([self isCancelled])
+    {
+        // Must move the operation to the finished state if it is canceled.
+        [self willChangeValueForKey:@"isFinished"];
+        finished = YES;
+        [self didChangeValueForKey:@"isFinished"];
+        return;
+    }
+    
+    // If the operation is not canceled, begin executing the task.
+    [self willChangeValueForKey:@"isExecuting"];
+    [NSThread detachNewThreadSelector:@selector(main) toTarget:self withObject:nil];
+    executing = YES;
+    [self didChangeValueForKey:@"isExecuting"];
+}
+
+- (BOOL)isConcurrent {
+    return YES;
+}
+
+- (BOOL)isExecuting {
+    return executing;
+}
+
+- (BOOL)isFinished {
+    return finished;
+}
+- (void)completeOperation {
+    [self willChangeValueForKey:@"isFinished"];
+    [self willChangeValueForKey:@"isExecuting"];
+    
+    executing = NO;
+    finished = YES;
+    
+    [self didChangeValueForKey:@"isExecuting"];
+    [self didChangeValueForKey:@"isFinished"];
+}
+
+
 
 -(void)contextChanged:(NSNotification*)notification
 {
@@ -75,12 +118,12 @@ typedef enum : NSInteger {
                    {
                        // Merging changes to persistant store
                        [self.mainContext mergeChangesFromContextDidSaveNotification:notification];
+                       
                    });
 }
 
 -(void) main
 {
-
     self.context = [[[NSManagedObjectContext alloc] init] autorelease];
     self.context.persistentStoreCoordinator = self.mainContext.persistentStoreCoordinator;
     [[NSNotificationCenter defaultCenter] addObserver:self
@@ -100,6 +143,7 @@ typedef enum : NSInteger {
     self.parser.delegate=self;
     [self.parser parse];
     [FeedItem deleteOldFeedItemsInContext: self.context];
+    [self completeOperation];
 }
 
 // start of tag
@@ -116,9 +160,17 @@ typedef enum : NSInteger {
     // if new item tag is being detected I create a new Item instance NSManagaedObject
     if ([elementName isEqualToString:@"item"])
     {
-        
+        if([self isCancelled])
+        {
+            
+            [self.parser abortParsing];
+            [self completeOperation ];
+            
+        }
         self.item= [FeedItem insertInManagedObjectContext:self.context ];
         [self.server addFeedItemRelationshipObject:self.item];
+        
+    
     }
     
 }
@@ -226,9 +278,6 @@ typedef enum : NSInteger {
         if(_flag) return;
         if([self.tagStack.showTop isEqualToString:@"item"])
         {
-            NSError *error;
-            [self.context save:&error];
-            
             FeedImage *image = [FeedImage insertInManagedObjectContext:self.context];
             image.imageWidth = @([[[self.attributeStack showTop ] objectForKey:@"width"] integerValue]);
             image.imageHeight = @([[[self.attributeStack showTop] objectForKey:@"height"] integerValue]);
@@ -237,7 +286,6 @@ typedef enum : NSInteger {
             str = [str stringByReplacingOccurrencesOfString:@" " withString:@""];
             image.imageUrl = str;
             [self.item addFeedImageRelationshipObject:image];
-            
             [self.attributeStack pop];
         }
     }
@@ -247,7 +295,7 @@ typedef enum : NSInteger {
         [self.attributeStack pop];
         if(_flag) { _flag=NewInstance; return;}
         NSError *error;
-        [self.context save:&error];
+        if(![self.context save:&error]) NSLog(@"Parser.m - saving item\n%@",error);
     }
     else if (self.server.serverImageUrl == nil && [elementName isEqualToString:@"url"])
     {
@@ -261,8 +309,6 @@ typedef enum : NSInteger {
             str = [self.element stringByReplacingOccurrencesOfString:@"\n" withString:@""];
             str = [str stringByReplacingOccurrencesOfString:@" " withString:@""];
             self.server.serverImageUrl = str;
-            NSError *error;
-            [self.context save:&error];
         }
     }
     // if we dont recognize tag just leave it - drop out from stack

@@ -15,10 +15,15 @@
 #import <CoreData/CoreData.h>
 #import "NSString+MD5.h"
 #import "SettingsManager.h"
+#import "ParserManager.h"
 
 @interface Parser : NSOperation <NSXMLParserDelegate>
+{
 
-+(instancetype)createGeneratorWithUrl:(NSString*)url;
+    
+}
+
++(instancetype)createParseOperationWithUrl:(NSString*)url;
 
 
 @end
